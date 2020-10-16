@@ -1,1 +1,1 @@
-start cmd /k npm run electron:serve
+start cmd /k npm run serve

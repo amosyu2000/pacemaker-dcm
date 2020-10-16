@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 import post from '@/utils/post'
 import BackgroundParticles from '@/components/BackgroundParticles.vue'
 import InputField from '@/components/InputField.vue'
@@ -111,9 +110,8 @@ export default {
     },
     login: async function(loginType = 'login') {
       const response = await post(
-        `/user/${loginType}`,
+        `user/${loginType}`,
         {
-          licenseKey: process.env.VUE_APP_LICENSE_KEY,
           username: this.username,
           password: this.password,
         }
@@ -128,7 +126,7 @@ export default {
         this.errorMessage = userData.reason
         return
       }
-      ['_id', 'username'].map(key => {Cookies.set(key, userData[key])})
+      this.$store.commit('setUser', userData)
       this.$router.push('dashboard')
     }
   },

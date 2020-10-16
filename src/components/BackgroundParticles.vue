@@ -16,7 +16,7 @@ export default {
       {
         "particles": {
           "number": {
-            "value": 50,
+            "value": 60,
             // "density": {
             //   "enable": true,
             //   "value_area": 400
@@ -58,7 +58,7 @@ export default {
           },
           "line_linked": {
             "enable": true,
-            "distance": 100,
+            "distance": 120,
             "color": "#ffffff",
             "opacity": 0.25,
             "width": 1
@@ -130,4 +130,14 @@ export default {
   left: 0
   width: 100%
   height: 100%
+  mix-blend-mode: hard-light
+  &::after
+    position: absolute
+    content: ""
+    left: 0px
+    top: 0px
+    height: 100%
+    width: 100%
+    background: linear-gradient(gray 0%, transparent 10%, transparent 90%, gray 100%)
+    pointer-events: none
 </style>

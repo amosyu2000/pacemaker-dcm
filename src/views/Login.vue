@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <BackgroundParticles>
     <header class="header">
       <p class="font-xl c-lightest font-bold">Device Controller-Monitor</p>
       <p class="font-md c-lighter">SFWRENG 3K04 Lab 4 Team 2</p>
@@ -19,21 +19,21 @@
               v-model="password" 
               type="password"
             />
-            <p class="c-error">{{errorMessage}}</p>
+            <p class="c-error m-1">{{errorMessage}}</p>
             <InputButton value="Log In"/>
           </form>
-          <div class="card-child">
+          <form class="card-child" @submit="toggleForms">
             <p class="font-lg font-bold c-lightest mb-2">Register</p>
             <p>Don't have an account?</p>
-            <InputButton value="Register" @click.native="toggleForms"/>
-          </div>
+            <InputButton value="Register" class="mt-2"/>
+          </form>
         </template>
         <template v-else>
-          <div class="card-child">
+          <form class="card-child" @submit="toggleForms">
             <p class="font-lg font-bold c-lightest mb-2">Login</p>
             <p>Already have an account?</p>
-            <InputButton value="Log In" @click.native="toggleForms"/>
-          </div>
+            <InputButton value="Log In" class="mt-2"/>
+          </form>
           <form class="card-child" @submit="checkRegistrationForm">
             <p class="font-lg font-bold c-lightest mb-2">Register</p>
             <InputField 
@@ -50,37 +50,42 @@
               v-model="retypedPassword" 
               type="password"
             />
-            <p class="c-error">{{ errorMessage }}</p>
+            <p class="c-error my-1">{{ errorMessage }}</p>
             <InputButton value="Register"/>
           </form>
         </template>
       </div>
     </div>
-  </div>
+  </BackgroundParticles>
 </template>
 
 <script>
-import axios from 'axios'
-import qs from 'qs'
 import Cookies from 'js-cookie'
+import post from '@/utils/post'
+import BackgroundParticles from '@/components/BackgroundParticles.vue'
 import InputField from '@/components/InputField.vue'
 import InputButton from '@/components/InputButton.vue'
 
 export default {
   name: "Login",
   components: {
+    BackgroundParticles,
     InputField,
     InputButton,
   },
   data: () => ({
+    // Indicates whether to show the 'Login' or 'Register' side of the card
     showLoginForm: true,
+
+    // Data that is bound to inputs via 'v-model'
     errorMessage: null,
     username: null,
     password: null,
     retypedPassword: null,
   }),
   methods: {
-    toggleForms: function() {
+    toggleForms: function(e) {
+      e.preventDefault()
       this.showLoginForm = !this.showLoginForm
       this.errorMessage = null
     },
@@ -105,13 +110,13 @@ export default {
       this.login('register')
     },
     login: async function(loginType = 'login') {
-      const response = await axios.post(
-        `${process.env.VUE_APP_API}/user/${loginType}`,
-        qs.stringify({
+      const response = await post(
+        `/user/${loginType}`,
+        {
           licenseKey: process.env.VUE_APP_LICENSE_KEY,
           username: this.username,
           password: this.password,
-        })
+        }
       )
       if (response.status !== 200) {
         this.errorMessage = 'Could not connect to server.'
@@ -131,14 +136,13 @@ export default {
 </script> 
 
 <style lang="sass" scoped>
-
 .header
-  background: $bg-darkest
+  background: $bg-overlay
   text-align: center
-  padding: 4rem 0 2rem 0
+  padding: 4rem 2rem 2rem
 
 .header-bottom
-  background: $bg-darkest
+  background: $bg-overlay
   border-bottom: $border
   position: absolute
   width: 100%
@@ -151,7 +155,7 @@ export default {
   border-radius: 0.25rem
   box-shadow: $shadow
   display: flex
-  padding: 2rem 1rem
+  padding: 2rem 0
   margin: 0 2rem
   max-width: 50rem
   flex: 1
@@ -168,13 +172,14 @@ export default {
     transform: translate(-50%, -50%)
 
 .card-child
-  max-width: 25rem
-  flex: 1
-  padding: 1rem
+  flex: 1 0 0px
+  min-width: 0px
+  padding: 1rem 4rem
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
+  text-align: center
   &:first-child
     border-right: $border
 </style>

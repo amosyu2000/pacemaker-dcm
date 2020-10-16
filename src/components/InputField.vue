@@ -1,6 +1,6 @@
 <template>
-  <div class="text-left m-1">  
-    <label :for="title">{{title}}</label>
+  <div class="text-left">  
+    <label :for="title">{{ title }}</label>
     <br>
     <input 
       spellcheck="false"
@@ -38,9 +38,6 @@ export default {
 
 <style lang="sass" scoped>
 input
-  color: $color-lighter
-  background: $bg-input
-  border: $border
   font-size: $font-md
   margin: 0.25rem 0
   padding: 0.5rem

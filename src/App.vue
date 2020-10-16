@@ -15,5 +15,7 @@ export default {
 
 <style lang="sass">
 #app
-  min-height: 100vh
+  height: 100vh
+  min-width: 480px
+  background: $bg-darker
 </style>

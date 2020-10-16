@@ -1,11 +1,8 @@
 <template>
-  <div class="mt-2">
-    <input 
-      type="submit"
-      :value="value" 
-    >
-    <br>
-  </div>
+  <input 
+    type="submit"
+    :value="value" 
+  >
 </template>
 
 <script>
@@ -26,7 +23,7 @@ input
   border-radius: 0.25rem
   cursor: pointer
   padding: 0.5rem 1rem
-  transition: all 0.1s
+  transition: background 0.1s
   &:hover,
   &:active,
   &:focus

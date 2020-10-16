@@ -8,6 +8,7 @@ module.exports = {
   },
   pluginOptions: {
     electronBuilder: {
+      nodeIntegration: true,
       builderOptions: {
         "appId": "pacemaker-dcm",
         "productName": "Pacemaker DCM",

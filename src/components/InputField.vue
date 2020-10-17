@@ -1,9 +1,15 @@
 <template>
   <div class="text-left">  
-    <label :for="title">{{ title }}</label>
+    <label :for="title" class="nowrap">
+      <template v-if="title">
+        {{ title }}
+      </template>
+      <slot v-else/>
+    </label>
     <br>
     <input 
       spellcheck="false"
+      :size="size"
       :id="title" 
       :name="title" 
       :placeholder="hint"
@@ -20,6 +26,10 @@ export default {
   name: "InputField",
   props: {
     title: String,
+    size: {
+      type: Number,
+      default: 20,
+    },
     hint: {
       type: String,
       default: '',
@@ -44,7 +54,7 @@ input
   border-radius: 0.25rem
   &:active,
   &:focus
-    border: $border-active
+    border: $border-lighter
   &::-ms-reveal,
   &::-ms-clear
     display: none

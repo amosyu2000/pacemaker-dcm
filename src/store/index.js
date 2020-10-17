@@ -16,6 +16,9 @@ export default new Vuex.Store({
     setUser: function(state, json) {
       state.user = json
     },
+    setBundles: function(state, array) {
+      state.bundles = array
+    },
     reset: function(state) {
       Object.assign(state, getDefaultState())
     },

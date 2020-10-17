@@ -3,7 +3,7 @@
     <NavBar/>
     <div class="w-100 text-center my-4 px-2">
       <InputButton value="Delete Account" type="error" @click.native="deleteAccount"/>
-      <div v-if="deleteAccountConfirmed" class="c-error mt-2">
+      <div v-if="deleteAccountConfirmed" class="c-red mt-2">
         Are you sure? Click the button again to delete your account.
       </div>
     </div>
@@ -30,6 +30,7 @@ export default {
         post('user/delete', {
           id: this.$store.state.user._id
         })
+        this.$store.commit('reset')
         this.$router.push('login')
       }
       else {

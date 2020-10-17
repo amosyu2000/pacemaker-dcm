@@ -19,7 +19,7 @@
               v-model="password" 
               type="password"
             />
-            <p class="c-error m-1">{{errorMessage}}</p>
+            <p class="c-red m-1">{{errorMessage}}</p>
             <InputButton value="Log In"/>
           </form>
           <form class="card-child" @submit="toggleForms">
@@ -50,7 +50,7 @@
               v-model="retypedPassword" 
               type="password"
             />
-            <p class="c-error my-1">{{ errorMessage }}</p>
+            <p class="c-red my-1">{{ errorMessage }}</p>
             <InputButton value="Register"/>
           </form>
         </template>

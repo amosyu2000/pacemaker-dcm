@@ -1,7 +1,7 @@
 <template>
   <div class="v-flex h-100">
     <NavBar/>
-    <div class="flex-1 h-flex">
+    <div class="flex-1 h-flex overflow-hidden">
       <div class="flex-1 p-2 pr-1">
         <DashboardLeft/>
       </div>

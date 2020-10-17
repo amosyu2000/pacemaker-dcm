@@ -18,7 +18,7 @@ html
 	html
 		font-size: 15px
 
-body, div, span, p, a, ul, input, fieldset, label, button, footer  
+body, div, span, section, p, a, ul, input, fieldset, label, button, footer  
 	padding: 0
 	margin: 0
 	min-width: 0
@@ -77,6 +77,10 @@ button:focus
 		border: solid 0.2rem transparent
 	&-corner
 		background: transparent
+body::-webkit-scrollbar
+	background: $bg-darker
+	&-corner
+		background: $bg-darker
 
 .align-items-center 
 	align-items: center
@@ -108,6 +112,8 @@ button:focus
 	flex: 1 1 0px
 .flex-3
 	flex: 3 3 0px
+.flex-4
+	flex: 4 4 0px
 .flex-wrap 
 	flex-wrap: wrap
 .flex-nowrap 

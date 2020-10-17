@@ -13,12 +13,12 @@ const modes = {
   //     "VENT_SENS", "VRP"
   //   ],
   // },
-  // 1: {
-  //   name: "AOO",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "ATR_AMP", "ATR_PW"
-  //   ],
-  // },
+  1: {
+    name: "AOO",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "ATR_AMP", "ATR_PW"
+    ],
+  },
   // : {
   //   name: "AAI",
   //   parameters: [
@@ -127,7 +127,7 @@ const modes = {
   //     "RCVR_TIME"
   //   ],
   // },
-  1: {
+  2: {
     name: "DDDR",
     parameters: [
       "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "AV_DELAY_FIXED", 

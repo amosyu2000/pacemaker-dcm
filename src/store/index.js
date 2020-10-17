@@ -7,17 +7,15 @@ function getDefaultState() {
   return {
     user: {},
     bundles: [],
+    focusedBundleId: null,
   }
 }
 
 export default new Vuex.Store({
   state: getDefaultState(),
   mutations: {
-    setUser: function(state, json) {
-      state.user = json
-    },
-    setBundles: function(state, array) {
-      state.bundles = array
+    set: function(state, payload) {
+      Object.keys(payload).forEach(k => state[k] = payload[k])
     },
     reset: function(state) {
       Object.assign(state, getDefaultState())

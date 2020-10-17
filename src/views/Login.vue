@@ -126,7 +126,7 @@ export default {
         this.errorMessage = userData.reason
         return
       }
-      this.$store.commit('setUser', userData)
+      this.$store.commit('set', {user: userData})
       this.$router.push('dashboard')
     }
   },

@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "InputButton",
+  name: "AppInputButton",
   props: {
     value: String,
     type: {
@@ -23,6 +23,7 @@ export default {
 input
   color: $color-lightest
   font-size: $font-sm
+  font-weight: bold
   box-shadow: $shadow
   border-radius: 0.25rem
   cursor: pointer

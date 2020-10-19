@@ -7,7 +7,8 @@ function getDefaultState() {
   return {
     user: {},
     bundles: [],
-    focusedBundleId: null,
+    focusedBundle: {},
+    newBundle: {},
   }
 }
 

@@ -2,7 +2,7 @@
   <div>
     <NavBar/>
     <div class="w-100 text-center my-4 px-2">
-      <InputButton value="Delete Account" type="error" @click.native="deleteAccount"/>
+      <AppInputButton value="Delete Account" type="error" @click.native="deleteAccount"/>
       <div v-if="deleteAccountConfirmed" class="c-red mt-2">
         Are you sure? Click the button again to delete your account.
       </div>
@@ -12,13 +12,13 @@
 
 <script>
 import post from '@/utils/post'
-import InputButton from '@/components/InputButton.vue'
+import AppInputButton from '@/components/AppInputButton.vue'
 import NavBar from '@/components/NavBar.vue'
 
 export default {
   name: "Settings",
   components: {
-    InputButton,
+    AppInputButton,
     NavBar,
   },
   data: () => ({

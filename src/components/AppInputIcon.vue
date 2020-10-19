@@ -1,5 +1,8 @@
 <template>
-  <label>
+  <label 
+    :title="title" 
+    @click.prevent
+  >
     <input type="submit" name="image" value="image">
     <FontAwesomeIcon :icon="icon"/>
   </label>
@@ -12,9 +15,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(fas)
 export default {
-  name: "IconButton",
+  name: "AppInputIcon",
   props: {
     icon: String,
+    title: {
+      type: String,
+      default: null,
+    }
   },
   components: {
     FontAwesomeIcon,

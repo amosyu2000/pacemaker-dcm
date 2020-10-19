@@ -188,4 +188,5 @@ export default {
       }
     }
   },
+  options: Object.entries(modes).map(([k,v]) => ({name: v.name, value: k})),
 }

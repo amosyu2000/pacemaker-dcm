@@ -42,16 +42,25 @@ body
 p, label
 	line-height: 1.3
 
-input
+input, select
 	color: $color-lighter
 	background: $bg-input
-	border: $border
+	&:focus
+		outline: none
+	// removes password 'eye' button
+	&::-ms-reveal,
+	&::-ms-clear
+		display: none
 	&:-webkit-autofill
-		&,
-		&:hover, 
-		&:focus, 
-		&:active 
-			transition: background-color 3600s ease-in-out, color 3600s ease-in-out
+	&,
+	&:hover, 
+	&:focus, 
+	&:active 
+		transition: background-color 3600s ease-in-out, color 3600s ease-in-out
+
+fieldset:disabled
+	pointer-events: none
+	filter: opacity(0.8)
 
 button 
 	background: none

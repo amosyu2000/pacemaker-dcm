@@ -3,17 +3,19 @@
     <p class="flex-1 font-md font-bold">Welcome, {{ $store.state.user.username }}!</p>
     <p class="flex-1 font-md text-center">{{ currentTime }}</p>
     <div class="flex-1 h-flex align-items-center justify-content-end">
-      <InputButton value="Log Out" @click.native="logout"/>
-      <IconButton 
+      <AppInputButton value="Log Out" @click.native="logout"/>
+      <AppInputIcon 
         v-if="$route.name==='dashboard'"
         @click.native="()=>{$router.push('settings').catch(err => {})}"
         icon="cog" 
+        title="Settings"
         class="ml-1" 
       />
-      <IconButton 
+      <AppInputIcon 
         v-if="$route.name==='settings'"
         @click.native="()=>{$router.push('dashboard').catch(err => {})}"
         icon="columns" 
+        title="Dashboard"
         class="ml-1" 
       />
     </div>
@@ -21,14 +23,14 @@
 </template>
 
 <script>
-import IconButton from '@/components/IconButton.vue'
-import InputButton from '@/components/InputButton.vue'
+import AppInputIcon from '@/components/AppInputIcon.vue'
+import AppInputButton from '@/components/AppInputButton.vue'
 
 export default {
   name: "NavBar",
   components: {
-    IconButton,
-    InputButton,
+    AppInputIcon,
+    AppInputButton,
   },
   data: () => ({
     currentTime: null,

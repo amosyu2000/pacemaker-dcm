@@ -1,70 +1,77 @@
 <template>
-  <div class="v-flex">
-    <header v-if="$store.state.focusedBundleId">
-      <span>{{ bundle.name }}</span>
-      <span class="ml-auto c-light font-normal">
-        {{ (new Date(bundle.created_at)).toLocaleString('en-US') }}
-      </span>
-    </header>
-    <header v-else>
-      <span>Set New Parameters</span>
-    </header>
-    <fieldset 
-      v-if="$store.state.focusedBundleId"
-      disabled="disabled"
-    >
-      <InputField
-        :value="mode.name"
+  <AppSection>
+    <template v-slot:header>
+      <template v-if="$store.state.focusedBundle._id">
+        <span>{{ bundle.name }}</span>
+        <span class="ml-auto c-light font-normal">
+          {{ (new Date(bundle.created_at)).toLocaleString('en-US') }}
+        </span>
+      </template>
+      <template v-else>
+        <span>Set New Parameters</span>
+      </template>
+    </template>
+    <fieldset :disabled="Boolean($store.state.focusedBundle._id)">
+      <AppInputSelect
+        :value="bundle.MODE"
+        :options="mode.options"
+        v-model.number="bundle.MODE"
         title="Therapy Mode"
         class="px-1 pb-3"
       />
       <div class="h-flex flex-wrap">
-        <InputField
-          v-for="parameter in mode.parameters"
-          :key="parameter.id"
-          :title="parameter.name"
-          :value="bundle[parameter.id]"
-          class="parameter px-1"
-        />
+        <template 
+          v-for="param in mode.get(bundle.MODE).parameters" 
+        >
+          <AppInputNumber
+            v-if="param.type === Number"
+            :key="param.id"
+            :title="param.name"
+            v-model.number="bundle[param.id]"
+            class="input px-1"
+          />
+          <AppInputSelect
+            v-else-if="param.type === Boolean"
+            :key="param.id"
+            :title="param.name"
+            :value="bundle[param.id]"
+            :options="[{name:'True', value: 1}, {name:'False', value:0}]"
+            v-model.number="bundle[param.id]"
+            class="input px-1"
+          />
+        </template>
       </div>
     </fieldset>
-  </div>
+  </AppSection>
 </template>
 
 <script>
 import mode from '@/utils/mode'
-import InputField from '@/components/InputField.vue'
+import AppSection from '@/components/AppSection.vue'
+import AppInputNumber from '@/components/AppInputNumber.vue'
+import AppInputSelect from '@/components/AppInputSelect.vue'
 
 export default {
   name: "DashboardForm",
   components: {
-    InputField,
+    AppSection,
+    AppInputNumber,
+    AppInputSelect,
   },
+  data: () => ({
+    mode: mode,
+  }),
   computed: {
     // From the store, returns the bundle that matches the focused bundle's ID
     bundle: function() {
-      const bundles = this.$store.state.bundles
-      return bundles.find(b => b._id === this.$store.state.focusedBundleId)
-    },
-    // Returns the mode data for the mode that is currently selected in the form
-    mode: function() {
-      return mode.get(this.bundle.MODE)
+      return this.$store.state.focusedBundle
     },
   },
 }
 </script>
 
 <style lang="sass" scoped>
-header
-  color: $color-lighter
-  font-weight: bold
-  display: flex
-  align-items: center
-  white-space: nowrap
-  padding: 0.5rem 0
-  margin: 0.5rem
-  border-bottom: $border-light
-.parameter
+.input
   flex-basis: 13rem
   flex-grow: 1
 </style>

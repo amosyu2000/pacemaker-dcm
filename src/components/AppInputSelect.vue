@@ -1,56 +1,51 @@
 <template>
   <div class="text-left overflow-hidden">  
     <label :for="title" class="nowrap">
-      <template v-if="title">
-        {{ title }}
-      </template>
-      <slot v-else/>
+      {{ title }}
     </label>
     <br>
-    <input 
-      spellcheck="false"
+    <select
       :id="title" 
       :name="title" 
-      :placeholder="hint"
-      :type="type"
       v-bind:value="value"
       v-on:input="$emit('input', $event.target.value)"
     >
-    <br>
+      <option 
+        v-for="option in options"
+        :key="option.value"
+        :value="option.value"
+      >
+        {{ option.name }}
+      </option>
+    </select>
   </div>
 </template>
 
 <script>
 export default {
-  name: "InputField",
+  name: "AppInputSelect",
   props: {
     title: String,
-    hint: {
-      type: String,
-      default: '',
-    },
-    type: {
-      type: String,
-      default: 'text',
-    },
     value: {
-      type: [String, Number, Boolean],
+      type: [String, Number],
       default: null,
     },
+    // Accepts an array of options as a prop
+    // Each option should be an object {name: '', value: ''}
+    options: Array,
   },
 }
 </script>
 
 <style lang="sass" scoped>
-input
+select
   font-size: $font-md
-  width: 100%
-  margin: 0.25rem 0
-  padding: 0.5rem
+  border: $border
   border-radius: 0.25rem
+  padding: 0.5rem 0.25rem
+  margin: 0.25rem 0
+  width: 100%
+  cursor: pointer
   &:focus
     border: $border-lighter
-  &::-ms-reveal,
-  &::-ms-clear
-    display: none
 </style>

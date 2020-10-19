@@ -1,9 +1,9 @@
 <template>
-  <div class="v-flex">
-    <header>History</header>
+  <AppSection>
+    <template v-slot:header>History</template>
     <button 
-      @click="()=>{$store.commit('set', {focusedBundleId: null})}" 
-      :focused="!$store.state.focusedBundleId"
+      @click="()=>{setFocusedBundle($store.state.newBundle)}" 
+      :focused="$store.state.focusedBundle._id === null"
       class="h-flex c-lighter"
     >
       <span>New</span>
@@ -12,66 +12,65 @@
     <button 
       v-for="bundle in bundles" 
       :key="bundle._id"
-      @click="()=>{$store.commit('set', {focusedBundleId: bundle._id})}"
-      :focused="bundle._id === $store.state.focusedBundleId"
+      @click="()=>{setFocusedBundle(bundle)}"
+      :focused="$store.state.focusedBundle._id === bundle._id"
     >
       {{ bundle.name }}
     </button>
-  </div>
+  </AppSection>
 </template>
 
 <script>
 import post from '@/utils/post'
+import AppSection from '@/components/AppSection'
 
 export default {
   name: "DashboardHistory",
-  data: () => ({
-    bundles: [],
-  }),
+  components: {
+    AppSection,
+  },
   computed: {
+    // Returns the array of bundles from the store, 
+    // reversed so that the newest is at the front
+    bundles: function() {
+      return this.$store.state.bundles.slice().reverse()
+    },
     bundleCount: function() {
       return this.$store.state.bundles.length
-    }
-  },
-  watch: {
-    // Watches the amount of bundles in the store
-    // If the amount of bundles changes, update the local 'bundles' data
-    bundleCount: {handler: "setBundles"},
-  },
-  methods: {
-    // Syncs the local 'bundles' data to the 'bundles' in the store
-    // If the store is empty, request bundles from the API first
-    setBundles: async function() {
-      if (this.bundleCount === 0) {
-        const response = await post('bundle/getall', {
-          id: this.$store.state.user._id,
-        })
-        if (response.status !== 200) {
-            // TODO: do something if cannot connect to network
-            return
-        }
-        this.$store.commit('set', {bundles: response.data.bundles})
-      }
-      this.bundles = this.$store.state.bundles.slice().reverse()
     },
   },
-  mounted: function() {
-    this.setBundles()
-  }
+  watch: {
+    // Updates the newBundle in the store if the amount of bundles increases
+    bundleCount: function() {
+      const bundles = this.$store.state.bundles
+      const newBundle = Object.assign({}, bundles[bundles.length-1], {_id: undefined})
+      this.$store.commit('set', {newBundle: newBundle})
+      this.$store.commit('set', {focusedBundle: newBundle})
+    },
+  },
+  methods: {
+    // Sets the focused bundle to the bundle that is passed in
+    setFocusedBundle: function (bundle) {
+      this.$store.commit('set', {focusedBundle: bundle})
+    },
+  },
+  mounted: async function() {
+    // If the store is empty, request bundles from the API first
+    if (this.bundleCount === 0) {
+      const response = await post('bundle/getall', {
+        id: this.$store.state.user._id,
+      })
+      if (response.status !== 200) {
+          // TODO: do something if cannot connect to network
+          return
+      }
+      this.$store.commit('set', {bundles: response.data.bundles})
+    }
+  },
 }
 </script>
 
 <style lang="sass" scoped>
-header
-  color: $color-lighter
-  font-weight: bold
-  display: flex
-  align-items: center
-  white-space: nowrap
-  padding: 0.5rem 0
-  margin: 0.5rem
-  border-bottom: $border-light
-
 button
   padding: 0.5rem
   margin: 0 0 0.25rem 0

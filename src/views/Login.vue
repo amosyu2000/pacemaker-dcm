@@ -10,48 +10,48 @@
         <template v-if="showLoginForm">
           <form class="card-child" @submit="checkLoginForm">
             <p class="font-lg font-bold c-lightest mb-2">Login</p>
-            <InputField 
+            <AppInputField 
               title="Username" 
               v-model="username"
             />
-            <InputField 
+            <AppInputField 
               title="Password" 
               v-model="password" 
               type="password"
             />
             <p class="c-red m-1">{{errorMessage}}</p>
-            <InputButton value="Log In"/>
+            <AppInputButton value="Log In"/>
           </form>
           <form class="card-child" @submit="toggleForms">
             <p class="font-lg font-bold c-lightest mb-2">Register</p>
             <p>Don't have an account?</p>
-            <InputButton value="Register" class="mt-2"/>
+            <AppInputButton value="Register" class="mt-2"/>
           </form>
         </template>
         <template v-else>
           <form class="card-child" @submit="toggleForms">
             <p class="font-lg font-bold c-lightest mb-2">Login</p>
             <p>Already have an account?</p>
-            <InputButton value="Log In" class="mt-2"/>
+            <AppInputButton value="Log In" class="mt-2"/>
           </form>
           <form class="card-child" @submit="checkRegistrationForm">
             <p class="font-lg font-bold c-lightest mb-2">Register</p>
-            <InputField 
+            <AppInputField 
               title="Username" 
               v-model="username"
             />
-            <InputField 
+            <AppInputField 
               title="Password" 
               v-model="password" 
               type="password"
             />
-            <InputField 
+            <AppInputField 
               title="Retype Password"
               v-model="retypedPassword" 
               type="password"
             />
             <p class="c-red my-1">{{ errorMessage }}</p>
-            <InputButton value="Register"/>
+            <AppInputButton value="Register"/>
           </form>
         </template>
       </div>
@@ -62,15 +62,15 @@
 <script>
 import post from '@/utils/post'
 import BackgroundParticles from '@/components/BackgroundParticles.vue'
-import InputField from '@/components/InputField.vue'
-import InputButton from '@/components/InputButton.vue'
+import AppInputField from '@/components/AppInputField.vue'
+import AppInputButton from '@/components/AppInputButton.vue'
 
 export default {
   name: "Login",
   components: {
     BackgroundParticles,
-    InputField,
-    InputButton,
+    AppInputField,
+    AppInputButton,
   },
   data: () => ({
     // Indicates whether to show the 'Login' or 'Register' side of the card
@@ -116,17 +116,13 @@ export default {
           password: this.password,
         }
       )
-      if (response.status !== 200) {
-        this.errorMessage = 'Could not connect to server.'
-        return
-      }
 
-      const userData = response.data
-      if (!userData.success) {
-        this.errorMessage = userData.reason
+      const data = response.data
+      if (!data.success) {
+        this.errorMessage = data.reason
         return
       }
-      this.$store.commit('set', {user: userData})
+      this.$store.commit('set', {user: data})
       this.$router.push('dashboard')
     }
   },

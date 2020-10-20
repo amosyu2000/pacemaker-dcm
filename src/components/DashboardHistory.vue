@@ -3,7 +3,7 @@
     <template v-slot:header>History</template>
     <button 
       @click="()=>{setFocusedBundle($store.state.newBundle)}" 
-      :focused="$store.state.focusedBundle._id === null"
+      :focused="!$store.state.focusedBundle._id"
       class="h-flex c-lighter"
     >
       <span>New</span>

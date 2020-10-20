@@ -3,13 +3,9 @@
     <NavBar/>
     <DashboardBar/>
     <div class="flex-1 h-flex overflow-hidden px-1 pb-1">
-      <div class="h-flex flex-1">
-        <DashboardHistory class="flex-1"/>
-        <DashboardForm class="flex-3"/>
-      </div>
-      <div class="h-flex flex-1">
-        <DashboardRight class="flex-1"/>
-      </div>
+      <DashboardHistory class="flex-1"/>
+      <DashboardForm class="flex-3"/>
+      <DashboardRight class="flex-4"/>
     </div>
   </div>
 </template>

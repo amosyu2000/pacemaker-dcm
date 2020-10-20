@@ -5,7 +5,11 @@
     icon="upload" 
     title="Upload Parameters"
   />
-  <AppInputIcon icon="sync-alt" title="Refresh Ports"/>
+  <span class="mr-1"/>
+  <AppInputIcon 
+    icon="sync-alt" 
+    title="Refresh Ports"
+  />
 </div>
 </template>
 

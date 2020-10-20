@@ -1,136 +1,136 @@
 const modes = {
-  // : {
-  //   name: "AAT",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "ATR_AMP", "ATR_PW", "ATR_SENS", 
-  //     "ARP", "PVARP"
-  //   ],
-  // },
-  // : {
-  //   name: "VVT",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "VENT_AMP", "VENT_PW", 
-  //     "VENT_SENS", "VRP"
-  //   ],
-  // },
   1: {
     name: "AOO",
     parameters: [
       "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "ATR_AMP", "ATR_PW"
     ],
   },
-  // : {
-  //   name: "AAI",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "ATR_AMP", "ATR_PW", "ATR_SENS", 
-  //     "ARP", "PVARP", "HYSTERESIS", "RATE_SMOOTH"
-  //   ],
-  // },
-  // : {
-  //   name: "VOO",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "VENT_AMP", "VENT_PW"
-  //   ],
-  // },
-  // : {
-  //   name: "VVI",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "VENT_AMP", "VENT_PW", 
-  //     "VENT_SENS", "VRP", "HYSTERESIS", "RATE_SMOOTH"
-  //   ],
-  // },
-  // : {
-  //   name: "VDD",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY_FIXED", "AV_DELAY_DYNA", 
-  //     "VENT_AMP", "VENT_PW", "VENT_SENS", "VRP", "PVARP_EXT", "RATE_SMOOTH",
-  //     "ATR_DUR", "ATR_FALLBACK_MODE", "ATR_FALLBACK_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "DOO",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY_FIXED", "ATR_AMP",
-  //     "VENT_AMP", "ATR_PW", "VENT_PW"
-  //   ],
-  // },
-  // : {
-  //   name: "DDI",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY_FIXED", "ATR_AMP",
-  //     "VENT_AMP", "ATR_PW", "VENT_PW", "ATR_SENS", "VENT_SENS", "VRP", "ARP",
-  //     "PVARP"
-  //   ],
-  // },
-  // : {
-  //   name: "DDD",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY_FIXED", "AV_DELAY_DYNA",
-  //     "AV_DELAY_SENSED", "ATR_AMP", "VENT_AMP", "ATR_PW", "VENT_PW", "ATR_SENS", 
-  //     "VENT_SENS", "VRP", "ARP", "PVARP", "PVARP_EXT", "HYSTERESIS", 
-  //     "RATE_SMOOTH", "ATR_DUR", "ATR_FALLBACK_MODE", "ATR_FALLBACK_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "AOOR",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "ATR_AMP", "ATR_PW", 
-  //     "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "AAIR",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "ATR_AMP", "ATR_PW", 
-  //     "ATR_SENS", "ARP", "PVARP", "HYSTERESIS", "RATE_SMOOTH", 
-  //     "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "VOOR",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "VENT_AMP", "VENT_PW",
-  //     "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "VVIR",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "VENT_AMP", "VENT_PW", 
-  //     "VENT_SENS", "VRP", "HYSTERESIS", "RATE_SMOOTH", "ACTIVITY_THRESH", 
-  //     "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "VDDR",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "AV_DELAY_FIXED", 
-  //     "AV_DELAY_DYNA", "VENT_AMP", "VENT_PW", "VENT_SENS", "VRP", "PVARP_EXT", 
-  //     "RATE_SMOOTH", "ATR_DUR", "ATR_FALLBACK_MODE", "ATR_FALLBACK_TIME",
-  //     "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "DOOR",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "AV_DELAY_FIXED", 
-  //     "ATR_AMP", "VENT_AMP", "ATR_PW", "VENT_PW", "ACTIVITY_THRESH", 
-  //     "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "DDIR",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "AV_DELAY_FIXED", 
-  //     "ATR_AMP", "VENT_AMP", "ATR_PW", "VENT_PW", "ATR_SENS", "VENT_SENS", 
-  //     "VRP", "ARP", "PVARP", "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", 
-  //     "RCVR_TIME"
-  //   ],
-  // },
   2: {
+    name: "AAI",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "ATR_AMP", "ATR_PW", "ATR_SENS", 
+      "ARP", "PVARP", "HYSTERESIS", "RATE_SMOOTH"
+    ],
+  },
+  3: {
+    name: "VOO",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "VENT_AMP", "VENT_PW"
+    ],
+  },
+  4: {
+    name: "VVI",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "VENT_AMP", "VENT_PW", 
+      "VENT_SENS", "VRP", "HYSTERESIS", "RATE_SMOOTH"
+    ],
+  },
+  5: {
+    name: "VDD",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY_FIXED", "AV_DELAY_DYNA", 
+      "VENT_AMP", "VENT_PW", "VENT_SENS", "VRP", "PVARP_EXT", "RATE_SMOOTH",
+      "ATR_DUR", "ATR_FALLBACK_MODE", "ATR_FALLBACK_TIME"
+    ],
+  },
+  6: {
+    name: "DOO",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY_FIXED", "ATR_AMP",
+      "VENT_AMP", "ATR_PW", "VENT_PW"
+    ],
+  },
+  7: {
+    name: "DDI",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY_FIXED", "ATR_AMP",
+      "VENT_AMP", "ATR_PW", "VENT_PW", "ATR_SENS", "VENT_SENS", "VRP", "ARP",
+      "PVARP"
+    ],
+  },
+  8: {
+    name: "DDD",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY_FIXED", "AV_DELAY_DYNA",
+      "AV_DELAY_SENSED", "ATR_AMP", "VENT_AMP", "ATR_PW", "VENT_PW", "ATR_SENS", 
+      "VENT_SENS", "VRP", "ARP", "PVARP", "PVARP_EXT", "HYSTERESIS", 
+      "RATE_SMOOTH", "ATR_DUR", "ATR_FALLBACK_MODE", "ATR_FALLBACK_TIME"
+    ],
+  },
+  9: {
+    name: "AAT",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "ATR_AMP", "ATR_PW", "ATR_SENS", 
+      "ARP", "PVARP"
+    ],
+  },
+  10: {
+    name: "VVT",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "VENT_AMP", "VENT_PW", 
+      "VENT_SENS", "VRP"
+    ],
+  },
+  11: {
+    name: "AOOR",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "ATR_AMP", "ATR_PW", 
+      "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+    ],
+  },
+  12: {
+    name: "AAIR",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "ATR_AMP", "ATR_PW", 
+      "ATR_SENS", "ARP", "PVARP", "HYSTERESIS", "RATE_SMOOTH", 
+      "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+    ],
+  },
+  13: {
+    name: "VOOR",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "VENT_AMP", "VENT_PW",
+      "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+    ],
+  },
+  14: {
+    name: "VVIR",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "VENT_AMP", "VENT_PW", 
+      "VENT_SENS", "VRP", "HYSTERESIS", "RATE_SMOOTH", "ACTIVITY_THRESH", 
+      "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+    ],
+  },
+  15: {
+    name: "VDDR",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "AV_DELAY_FIXED", 
+      "AV_DELAY_DYNA", "VENT_AMP", "VENT_PW", "VENT_SENS", "VRP", "PVARP_EXT", 
+      "RATE_SMOOTH", "ATR_DUR", "ATR_FALLBACK_MODE", "ATR_FALLBACK_TIME",
+      "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+    ],
+  },
+  16: {
+    name: "DOOR",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "AV_DELAY_FIXED", 
+      "ATR_AMP", "VENT_AMP", "ATR_PW", "VENT_PW", "ACTIVITY_THRESH", 
+      "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+    ],
+  },
+  17: {
+    name: "DDIR",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "AV_DELAY_FIXED", 
+      "ATR_AMP", "VENT_AMP", "ATR_PW", "VENT_PW", "ATR_SENS", "VENT_SENS", 
+      "VRP", "ARP", "PVARP", "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", 
+      "RCVR_TIME"
+    ],
+  },
+  18: {
     name: "DDDR",
     parameters: [
-      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENS", "AV_DELAY_FIXED", 
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "AV_DELAY_FIXED", 
       "AV_DELAY_DYNA", "AV_DELAY_SENSED", "ATR_AMP", "VENT_AMP", "ATR_PW", 
       "VENT_PW", "ATR_SENS", "VENT_SENS", "VRP", "ARP", "PVARP", "PVARP_EXT", 
       "HYSTERESIS", "RATE_SMOOTH", "ATR_DUR", "ATR_FALLBACK_MODE", 
@@ -142,11 +142,9 @@ const modes = {
 
 const parameters = {
   VOLTAGE:           { name: "Voltage",                 type: Number },
-  VENT_THRESH:       { name: "Ventricular Threshold",   type: Number },
-  ATR_THRESH:        { name: "Atrial Threshold",        type: Number },
   LOWER_RATE_LIMIT:  { name: "Lower Rate Limit",        type: Number },
   UPPER_RATE_LIMIT:  { name: "Upper Rate Limit",        type: Number },
-  MAX_SENS:          { name: "Maximum Sensor Rate",     type: Number },
+  MAX_SENSE:         { name: "Maximum Sensor Rate",     type: Number },
   AV_DELAY_FIXED:    { name: "Fixed AV Delay",          type: Number },
   AV_DELAY_DYNA:     { name: "Dynamic AV Delay",        type: Number },
   AV_DELAY_SENSED:   { name: "Sensed AV Delay Offset",  type: Number },
@@ -165,6 +163,8 @@ const parameters = {
   ATR_DUR:           { name: "ATR Duration",            type: Number },
   ATR_FALLBACK_MODE: { name: "ATR Fallback Mode",       type: Number },
   ATR_FALLBACK_TIME: { name: "ATR Fallback Time",       type: Number },
+  VENT_THRESH:       { name: "Ventricular Threshold",   type: Number },
+  ATR_THRESH:        { name: "Atrial Threshold",        type: Number },
   ACTIVITY_THRESH:   { name: "Activity Threshold",      type: Number },
   REACT_TIME:        { name: "Reaction Time",           type: Number },
   RESP_FACTOR:       { name: "Response Factor",         type: Number },
@@ -188,5 +188,5 @@ export default {
       }
     }
   },
-  options: Object.entries(modes).map(([k,v]) => ({name: v.name, value: k})),
+  options: Object.entries(modes).map(([k,v]) => ({name: v.name, value: Number(k)})),
 }

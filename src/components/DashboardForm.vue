@@ -11,7 +11,10 @@
         <span>Set New Parameters</span>
       </template>
     </template>
-    <fieldset :disabled="Boolean($store.state.focusedBundle._id)">
+    <fieldset 
+      v-if="bundle.MODE"
+      :disabled="Boolean($store.state.focusedBundle._id)"
+    >
       <AppInputSelect
         :value="bundle.MODE"
         :options="mode.options"
@@ -27,7 +30,7 @@
             v-if="param.type === Number"
             :key="param.id"
             :title="param.name"
-            v-model.number="bundle[param.id]"
+            v-model="bundle[param.id]"
             class="input px-1"
           />
           <AppInputSelect
@@ -36,7 +39,7 @@
             :title="param.name"
             :value="bundle[param.id]"
             :options="[{name:'True', value: 1}, {name:'False', value:0}]"
-            v-model.number="bundle[param.id]"
+            v-model="bundle[param.id]"
             class="input px-1"
           />
         </template>

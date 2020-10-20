@@ -1,6 +1,6 @@
 <template>
-  <div class="text-left overflow-hidden">
-    <label :for="title" class="nowrap">
+  <div class="text-left">
+    <label :for="title" class="nowrap overflow-hidden">
       {{ title }}
     </label>
     <br>
@@ -11,11 +11,15 @@
         :id="title" 
         :name="title"
         :value="numericValue"
-        @input="updateValue($event.target.value)"
+        @input="onInput($event.target.value)"
       />
       <div class="v-flex justify-content-center">
-        <button @click="updateValue(numericValue+1)"><FontAwesomeIcon icon="caret-up"/></button>
-        <button @click="updateValue(numericValue-1)"><FontAwesomeIcon icon="caret-down"/></button>
+        <button @click="updateValue(numericValue+1)" tabindex="-1">
+          <FontAwesomeIcon icon="caret-up"/>
+        </button>
+        <button @click="updateValue(numericValue-1)" tabindex="-1">
+          <FontAwesomeIcon icon="caret-down"/>
+        </button>
       </div>
     </div>
   </div>
@@ -48,15 +52,22 @@ export default {
       // Runs immediately upon creation
       immediate: true,
       handler (newValue) {
-        this.$emit('input', newValue)
-        this.numericValue = newValue
+        this.updateValue(newValue)
       }
     },
   },
   methods: {
+    toNumber: function(val) {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    },
+    onInput: function (newValue) {
+      this.updateValue(newValue)
+      this.$refs.numberField.value = this.numericValue
+    },
     updateValue: function (newValue) {
-      this.numericValue = newValue
-      this.$emit('input', newValue)
+      this.numericValue = this.toNumber(newValue)
+      this.$emit('input', this.numericValue)
     },
   }
 }
@@ -77,7 +88,7 @@ button
   padding: 0 0.5rem
   font-size: $font-sm
   &:hover
-    color: $color-lightest
+    color: $color-lighter
 
 .input-container
   background: $bg-input

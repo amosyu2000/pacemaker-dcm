@@ -1,9 +1,8 @@
 <template>
   <div class="text-left">
-    <label :for="title" class="nowrap overflow-hidden">
+    <label :for="title">
       {{ title }}
     </label>
-    <br>
     <div class="input-container">
       <input
         type="number"
@@ -74,6 +73,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+label
+  display: block
+  white-space: nowrap
+  overflow: hidden
+
 input
   padding: 0.5rem
   flex: 1
@@ -95,7 +99,8 @@ button
   border: $border
   border-radius: 0.25rem
   margin: 0.25rem 0
+  transition: border 0.1s
   display: flex
   &:focus-within
-    border: $border-lighter
+    border: $border-blue
 </style>

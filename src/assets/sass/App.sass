@@ -19,6 +19,7 @@ html
 		font-size: 15px
 
 body, div, span, section, p, a, ul, input, fieldset, label, button, footer  
+	user-select: none
 	padding: 0
 	margin: 0
 	min-width: 0
@@ -52,11 +53,11 @@ input, select
 	&::-ms-clear
 		display: none
 	&:-webkit-autofill
-	&,
-	&:hover, 
-	&:focus, 
-	&:active 
-		transition: background-color 3600s ease-in-out, color 3600s ease-in-out
+		&,
+		&:hover, 
+		&:focus, 
+		&:active 
+			transition: background-color 3600s ease-in-out, color 3600s ease-in-out
 
 fieldset:disabled
 	pointer-events: none

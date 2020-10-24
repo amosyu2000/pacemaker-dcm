@@ -1,9 +1,8 @@
 <template>
   <div class="text-left overflow-hidden">  
-    <label :for="title" class="nowrap">
+    <label :for="title">
       {{ title }}
     </label>
-    <br>
     <input
       spellcheck="false"
       :id="title" 
@@ -33,6 +32,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+label
+  display: block
+  white-space: nowrap
+  overflow: hidden
+
 input, select
   font-size: $font-md
   border: $border
@@ -40,6 +44,7 @@ input, select
   margin: 0.25rem 0
   padding: 0.5rem
   border-radius: 0.25rem
+  transition: border 0.1s
   &:focus
-    border: $border-lighter
+    border: $border-blue
 </style>

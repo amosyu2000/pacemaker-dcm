@@ -43,7 +43,7 @@ export default {
     // Updates the newBundle in the store if the amount of bundles increases
     bundleCount: function() {
       const bundles = this.$store.state.bundles
-      const newBundle = Object.assign({}, bundles[bundles.length-1], {_id: undefined})
+      const newBundle = this.createNewBundleFrom(bundles[bundles.length-1])
       this.$store.commit('set', {newBundle: newBundle})
       this.$store.commit('set', {focusedBundle: newBundle})
     },
@@ -52,6 +52,13 @@ export default {
     // Sets the focused bundle to the bundle that is passed in
     setFocusedBundle: function (bundle) {
       this.$store.commit('set', {focusedBundle: bundle})
+    },
+    // Create a new bundle based off of an existing bundle
+    createNewBundleFrom: function (bundle) {
+      return Object.assign({}, bundle, {
+        _id: undefined,
+        created_at: undefined,
+      })
     },
   },
   mounted: async function() {

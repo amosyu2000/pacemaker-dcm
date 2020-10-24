@@ -1,9 +1,8 @@
 <template>
   <div class="text-left">  
-    <label :for="title" class="nowrap overflow-hidden">
+    <label :for="title">
       {{ title }}
     </label>
-    <br>
     <div 
       class="selection-box" 
       :class="{focused: focused}" 
@@ -77,6 +76,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+label
+  display: block
+  white-space: nowrap
+  overflow: hidden
+
 .button
   font-size: $font-sm
   color: $color-light
@@ -90,13 +94,10 @@ export default {
     color: $color-lighter
 
 .focused
-  // To offset the removal of the .selected-option bottom border
-  padding-bottom: 1px
   & .button
     color: $color-lighter
   & .selected-option
-    border: $border-lighter
-    border-bottom: none
+    border: $border-blue
     border-bottom-left-radius: 0px
     border-bottom-right-radius: 0px
   & .selection-list
@@ -112,6 +113,7 @@ export default {
   font-size: $font-md
   padding: 0.5rem
   border-radius: 0.25rem
+  transition: border 0.1s
   display: flex
   align-items: center
   justify-content: space-between
@@ -119,7 +121,7 @@ export default {
 
 .selection-list
   background: $bg-input
-  border: $border-lighter
+  border: $border
   font-size: $font-sm
   border-radius: 0.25rem
   padding: 0.25rem

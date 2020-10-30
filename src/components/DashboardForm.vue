@@ -19,7 +19,7 @@
         :value="bundle.MODE"
         :options="mode.options"
         v-model.number="bundle.MODE"
-        title="Therapy Mode"
+        title="Pacing Mode"
         class="px-1 pb-3"
       />
       <div class="h-flex flex-wrap">
@@ -38,7 +38,7 @@
             :key="param.id"
             :title="param.name"
             :value="bundle[param.id]"
-            :options="[{name:'True', value: 1}, {name:'False', value:0}]"
+            :options="[{name: 'True', value: 1}, {name: 'False', value: 0}]"
             v-model="bundle[param.id]"
             class="input px-1"
           />
@@ -65,7 +65,7 @@ export default {
     mode: mode,
   }),
   computed: {
-    // From the store, returns the bundle that matches the focused bundle's ID
+    // From the store, returns the focused bundle
     bundle: function() {
       return this.$store.state.focusedBundle
     },

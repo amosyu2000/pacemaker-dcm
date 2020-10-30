@@ -1,7 +1,7 @@
 <template>
   <label 
     :title="title" 
-    @click.prevent
+    @click="$emit('click')"
   >
     <input type="submit" name="image" value="image">
     <FontAwesomeIcon :icon="icon"/>

@@ -1,6 +1,7 @@
 <template>
   <input 
     type="submit"
+    @click="$emit('click')"
     :value="value" 
     :class="type"
   >

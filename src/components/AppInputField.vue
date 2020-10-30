@@ -7,7 +7,7 @@
       spellcheck="false"
       :id="title" 
       :name="title" 
-      :type="type"
+      type="text"
       v-bind:value="value"
       v-on:input="$emit('input', $event.target.value)"
     >
@@ -19,12 +19,8 @@ export default {
   name: "AppInputField",
   props: {
     title: String,
-    type: {
-      type: String,
-      default: 'text',
-    },
     value: {
-      type: [String, Number, Boolean],
+      type: String,
       default: null,
     },
   },

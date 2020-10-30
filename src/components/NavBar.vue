@@ -3,17 +3,17 @@
     <p class="flex-1 font-md font-bold">Welcome, {{ $store.state.user.username }}!</p>
     <p class="flex-1 font-md text-center">{{ currentTime }}</p>
     <div class="flex-1 h-flex align-items-center justify-content-end">
-      <AppInputButton value="Log Out" @click.native="logout"/>
+      <AppInputButton value="Log Out" @click="logout"/>
       <AppInputIcon 
         v-if="$route.name==='dashboard'"
-        @click.native="()=>{$router.push('settings').catch(err => {})}"
+        @click="()=>{$router.push('settings').catch(err => {})}"
         icon="cog" 
         title="Settings"
         class="ml-1" 
       />
       <AppInputIcon 
         v-if="$route.name==='settings'"
-        @click.native="()=>{$router.push('dashboard').catch(err => {})}"
+        @click="()=>{$router.push('dashboard').catch(err => {})}"
         icon="columns" 
         title="Dashboard"
         class="ml-1" 

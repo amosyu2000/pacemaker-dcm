@@ -11,7 +11,7 @@
       @blur="setFocus(false)"
     >
       <div class="selected-option">
-        <span>{{ selectedOptionName }}</span>
+        <span class="selected-option-name">{{ selectedOptionName }}</span>
         <span class="button" v-if="focused"><FontAwesomeIcon icon="caret-up"/></span>
         <span class="button" v-else><FontAwesomeIcon icon="caret-down"/></span>
       </div>
@@ -47,19 +47,37 @@ export default {
   data: function() {
     return {
       focused: false,
-      selectedOptionName: null,
+      selectedOptionName: undefined,
     }
   },
   watch: {
-    // Watch for a change in the 'prop' value so that we can reload the component
+    // Used to watch for changes in either the 'value' or 'options' prop so that we 
+    // can reload the component
     value: {
       immediate: true,
       handler: function (newVal) {
-        if (newVal === undefined || this.options.length === 0) return
+        if (newVal === undefined) return
         const initialOption = this.options.find(o => o.value === newVal)
         this.makeSelection(initialOption)
       },
     },
+    options: {
+      immediate: true,
+      handler: function(newOptions) {
+        // Empty placeholder option
+        if (newOptions.length === 0) {
+          this.makeSelection({name: '\u00A0', value: null})
+        }
+        // If there is only 1 option, pick that one by default
+        else if (newOptions.length === 1) {
+          this.makeSelection(newOptions[0])
+        }
+        else {
+          const initialOption = newOptions.find(o => o.value === this.value)
+          this.makeSelection(initialOption)
+        }
+      }
+    }
   },
   methods: {
     makeSelection: function(option) {
@@ -84,8 +102,8 @@ label
   color: $color-light
 
 .selection-box
+  font-size: $font-md
   margin: 0.25rem 0
-  min-width: 8rem
   width: 100%
   cursor: pointer
   position: relative
@@ -109,21 +127,22 @@ label
   color: $color-lighter
   border: $border
   background: $bg-input
-  font-size: $font-md
   padding: 0.5rem
   border-radius: 0.25rem
   transition: border 0.1s
   display: flex
   align-items: center
-  justify-content: space-between
   position: relative
+
+.selected-option-name
+  overflow: hidden
+  text-overflow: ellipsis
+  flex: 1
 
 .selection-list
   background: $bg-input
   border: $border
-  font-size: $font-sm
   border-radius: 0.25rem
-  padding: 0.25rem
   margin-bottom: 1rem
   max-height: 15rem
   left: 0
@@ -136,9 +155,10 @@ label
 .option
   color: $color-light
   padding: 0.5rem
-  border-radius: 0.25rem
   transition: background 0.1s, color 0.1s
   user-select: none
+  overflow: hidden
+  text-overflow: ellipsis
   &:hover
     color: $color-lighter
     background: $bg-overlay

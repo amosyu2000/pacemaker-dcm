@@ -14,6 +14,7 @@
   <span class="pr-1"/>
   <AppInputSelect
     :options="ports"
+    class="port-select"
   />
   <span class="pr-1"/>
   <AppInputIcon 
@@ -56,8 +57,13 @@ export default {
     },
     refreshSerialPorts: async function() {
       const ports = await SerialPort.list()
-      console.log(ports)
+      this.ports = ports.map(port => ({name: port.path, value: port.path}))
     },
   }
 }
 </script>
+
+<style lang="sass">
+.port-select
+  width: 12rem
+</style>

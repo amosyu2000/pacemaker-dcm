@@ -13,13 +13,22 @@
   />
   <span class="pr-1"/>
   <AppInputSelect
+    v-model="selectedPort"
     :options="ports"
     class="port-select"
   />
   <span class="pr-1"/>
   <AppInputIcon 
-    icon="wave-square" 
+    v-if="connectedPort === null || !connectedPort.isOpen"
+    @click="connectPacemaker"
+    icon="handshake" 
     title="Connect to Pacemaker"
+  />
+  <AppInputIcon 
+    v-else
+    @click="disconnectPacemaker"
+    icon="handshake-slash" 
+    title="Disconnect Pacemaker"
   />
 </div>
 </template>
@@ -39,6 +48,8 @@ export default {
   data: function() {
     return {
       ports: [],
+      selectedPort: null,
+      connectedPort: null,
     }
   },
   methods: {
@@ -57,8 +68,20 @@ export default {
     },
     refreshSerialPorts: async function() {
       const ports = await SerialPort.list()
-      this.ports = ports.map(port => ({name: port.path, value: port.path}))
+      this.ports = ports.map(port => ({name: `${port.manufacturer} (${port.path})`, value: port.path}))
     },
+    connectPacemaker: function() {
+      this.connectedPort = new SerialPort(this.selectedPort, {
+        baudRate: 57600,
+      })
+      console.log(this.connectedPort)
+      this.connectedPort.on('data', function (data) {
+        console.log('data received: ' + data)
+      })
+    },
+    disconnectPacemaker: function() {
+      this.connectedPort.close()
+    }
   }
 }
 </script>

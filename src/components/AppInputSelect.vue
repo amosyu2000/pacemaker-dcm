@@ -56,7 +56,7 @@ export default {
     value: {
       immediate: true,
       handler: function (newVal) {
-        if (newVal === undefined) return
+        if (newVal === undefined || newVal === null) return
         const initialOption = this.options.find(o => o.value === newVal)
         this.makeSelection(initialOption)
       },
@@ -69,7 +69,7 @@ export default {
           this.makeSelection({name: '\u00A0', value: null})
         }
         // If there is only 1 option, pick that one by default
-        else if (newOptions.length === 1) {
+        else if (newOptions.length === 1 || this.value === undefined || this.value === null) {
           this.makeSelection(newOptions[0])
         }
         else {
@@ -135,9 +135,11 @@ label
   position: relative
 
 .selected-option-name
-  overflow: hidden
-  text-overflow: ellipsis
   flex: 1
+  padding-right: 0.5rem
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
 
 .selection-list
   background: $bg-input
@@ -158,6 +160,7 @@ label
   transition: background 0.1s, color 0.1s
   user-select: none
   overflow: hidden
+  white-space: nowrap
   text-overflow: ellipsis
   &:hover
     color: $color-lighter

@@ -31,6 +31,9 @@
             :key="param.id"
             :title="param.name"
             v-model="bundle[param.id]"
+            :min="param.min"
+            :max="param.max"
+            :increment="param.increment"
             class="input px-1"
           />
           <AppInputSelect

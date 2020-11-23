@@ -7,7 +7,7 @@
       spellcheck="false"
       :id="title" 
       :name="title" 
-      type="text"
+      :type="type"
       v-bind:value="value"
       v-on:input="$emit('input', $event.target.value)"
     >
@@ -22,6 +22,10 @@ export default {
     value: {
       type: String,
       default: null,
+    },
+    type: {
+      type: String,
+      default: "text"
     },
   },
 }

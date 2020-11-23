@@ -13,10 +13,10 @@
         @input="onInput($event.target.value)"
       />
       <div class="v-flex justify-content-center">
-        <button @click="updateValue(numericValue+1)" tabindex="-1">
+        <button @click="incrementValue(increment)" tabindex="-1">
           <FontAwesomeIcon icon="caret-up"/>
         </button>
-        <button @click="updateValue(numericValue-1)" tabindex="-1">
+        <button @click="incrementValue(-increment)" tabindex="-1">
           <FontAwesomeIcon icon="caret-down"/>
         </button>
       </div>
@@ -26,7 +26,6 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
 export default {
   name: "AppInputNumber",
   components: {
@@ -34,10 +33,19 @@ export default {
   },
   props: {
     title: String,
-    value: {
+    value: Number,
+    min: {
       type: Number,
-      default: 0,
+      default: -Infinity,
     },
+    max: {
+      type: Number,
+      default: Infinity,
+    },
+    increment: {
+      type: Number,
+      default: 1,
+    }
   },
   data: function() {
     // Need a data value derived from the 'value' prop so that
@@ -51,22 +59,51 @@ export default {
       // Runs immediately upon creation
       immediate: true,
       handler (newValue) {
-        this.updateValue(newValue)
+        this.numericValue = this.toNumber(newValue)
       }
     },
   },
   methods: {
-    toNumber: function(val) {
-      const num = Number(val)
-      return isNaN(num) ? 0 : num
-    },
-    onInput: function (newValue) {
-      this.updateValue(newValue)
-      this.$refs.numberField.value = this.numericValue
-    },
     updateValue: function (newValue) {
       this.numericValue = this.toNumber(newValue)
       this.$emit('input', this.numericValue)
+    },
+    toNumber: function(val) {
+      const num = parseFloat(val)
+      // Check that the number is within the bounds
+      if (num >= this.max) {
+        return this.max
+      }
+      if (num <= this.min) {
+        return this.min
+      }
+      return num
+    },
+    onInput: function (newValue) {
+      // Invalid input values will return an empty string "" instead of a number
+      if (newValue !== '') {
+        this.updateValue(newValue)
+        this.$refs.numberField.value = this.numericValue
+      }
+      else {
+        this.$refs.numberField.value = newValue
+      }
+    },
+    incrementValue: function(increment) {
+      // When incrementing, we want to preserve the decimal precision
+      // Get the precision that we should round the incremented value to
+      let precision = Math.max(this.precisionOf(this.numericValue), this.precisionOf(increment))
+      this.updateValue((this.numericValue+increment).toFixed(precision))
+    },
+    // Return the decimal precision of a number
+    // https://stackoverflow.com/a/17369245/12191708
+    precisionOf: function(num) {
+      if (Math.floor(num) === num) {
+        return 0
+      }
+      else {
+        return num.toString().split(".")[1].length || 0; 
+      }
     },
   }
 }

@@ -19,7 +19,8 @@ module.exports = {
         "win": {
           "icon": "./public/icon.png"
         }
-      }
+      },
+      externals: ["serialport"],
     }
   }
 }

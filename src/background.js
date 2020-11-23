@@ -76,6 +76,10 @@ app.on('ready', async () => {
   createWindow()
 })
 
+// Since Electron 9
+// https://github.com/electron/electron/issues/18397#issuecomment-583221969
+app.allowRendererProcessReuse = false
+
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {

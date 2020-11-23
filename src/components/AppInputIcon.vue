@@ -1,9 +1,8 @@
 <template>
   <label 
-    :title="title" 
-    @click="$emit('click')"
+    :title="title"
   >
-    <input type="submit" name="image" value="image">
+    <input type="submit" name="image" value="image" @click="$emit('click')">
     <FontAwesomeIcon :icon="icon"/>
   </label>
 </template>

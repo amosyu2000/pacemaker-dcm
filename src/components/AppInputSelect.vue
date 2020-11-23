@@ -39,10 +39,7 @@ export default {
   },
   props: {
     title: String,
-    value: {
-      type: [String, Number],
-      required: true,
-    },
+    value: [String, Number],
     // Accepts an array of options as a prop
     // Each option should be an object {name: '', value: ''}
     options: Array,
@@ -58,6 +55,7 @@ export default {
     value: {
       immediate: true,
       handler: function (newVal) {
+        if (newVal === undefined || this.options.length === 0) return
         const initialOption = this.options.find(o => o.value === newVal)
         this.makeSelection(initialOption)
       },
@@ -87,6 +85,7 @@ label
 
 .selection-box
   margin: 0.25rem 0
+  min-width: 8rem
   width: 100%
   cursor: pointer
   position: relative

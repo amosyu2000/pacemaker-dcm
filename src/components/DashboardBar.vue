@@ -1,14 +1,24 @@
 <template>
 <div class="h-flex justify-content-center align-items-center mt-1 mx-1">
   <AppInputIcon 
-    @click.native="uploadParameters"
+    @click="uploadParameters"
     icon="upload" 
     title="Upload Parameters"
   />
-  <span class="mr-1"/>
+  <span class="pr-3"/>
   <AppInputIcon 
+    @click="refreshSerialPorts"
     icon="sync-alt" 
     title="Refresh Ports"
+  />
+  <span class="pr-1"/>
+  <AppInputSelect
+    :options="ports"
+  />
+  <span class="pr-1"/>
+  <AppInputIcon 
+    icon="wave-square" 
+    title="Connect to Pacemaker"
   />
 </div>
 </template>
@@ -16,11 +26,19 @@
 <script>
 import post from '@/utils/post'
 import AppInputIcon from '@/components/AppInputIcon'
+import AppInputSelect from '@/components/AppInputSelect'
+import SerialPort from 'serialport'
 
 export default {
   name: "DashboardBar",
   components: {
     AppInputIcon,
+    AppInputSelect,
+  },
+  data: function() {
+    return {
+      ports: [],
+    }
   },
   methods: {
     uploadParameters: async function() {
@@ -35,7 +53,11 @@ export default {
         bundles.push(response.data.bundle)
         this.$store.commit('set', { bundles })
       }
-    }
+    },
+    refreshSerialPorts: async function() {
+      const ports = await SerialPort.list()
+      console.log(ports)
+    },
   }
 }
 </script>

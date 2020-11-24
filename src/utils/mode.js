@@ -8,8 +8,8 @@ const modes = {
   2: {
     name: "AAI",
     parameters: [
-      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "ATR_AMP", "ATR_PW", 
-      "ATR_SENSE", "ARP", "PVARP"
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "PVARP", "ATR_AMP", 
+      "ATR_PW", "ARP", "ATR_SENSE"
     ],
   },
   3: {
@@ -22,52 +22,52 @@ const modes = {
     name: "VVI",
     parameters: [
       "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "VENT_AMP", "VENT_PW", 
-      "VENT_SENSE", "VRP"  
+      "VRP", "VENT_SENSE"
     ],
   },
   5: {
     name: "DOO",
     parameters: [
       "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY", "ATR_AMP",
-      "VENT_AMP", "ATR_PW", "VENT_PW"
+      "ATR_PW", "VENT_AMP", "VENT_PW"
     ],
   },
   6: {
     name: "DOOR",
     parameters: [
-      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "AV_DELAY", 
-      "ATR_AMP", "VENT_AMP", "ATR_PW", "VENT_PW", "ACTIVITY_THRESH", 
-      "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY", "MAX_SENSE", 
+      "REACT_TIME", "RESP_FACTOR", "ACTIVITY_THRESH", "RCVR_TIME",
+      "ATR_AMP", "ATR_PW", "VENT_AMP", "VENT_PW"
     ],
   },
   7: {
     name: "AOOR",
     parameters: [
-      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "ATR_AMP", "ATR_PW", 
-      "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "REACT_TIME", "RESP_FACTOR", 
+      "ACTIVITY_THRESH", "RCVR_TIME", "MAX_SENSE", "ATR_AMP", "ATR_PW"
     ],
   },
   8: {
     name: "VOOR",
     parameters: [
-      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "VENT_AMP", "VENT_PW",
-      "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "REACT_TIME", "RESP_FACTOR", 
+      "ACTIVITY_THRESH", "RCVR_TIME", "MAX_SENSE", "VENT_AMP", "VENT_PW"
     ],
   },
   9: {
     name: "AAIR",
     parameters: [
-      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "ATR_AMP", "ATR_PW", 
-      "ATR_SENSE", "ARP", "PVARP", "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", 
-      "RCVR_TIME"
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "PVARP", "REACT_TIME", "RESP_FACTOR", 
+      "ACTIVITY_THRESH", "RCVR_TIME", "MAX_SENSE", "ATR_AMP", "ATR_PW", "ARP", 
+      "ATR_SENSE"
     ],
   },
   10: {
     name: "VVIR",
     parameters: [
-      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "VENT_AMP", "VENT_PW", 
-      "VENT_SENSE", "VRP",  "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", 
-      "RCVR_TIME"
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "REACT_TIME", "RESP_FACTOR", 
+      "ACTIVITY_THRESH", "RCVR_TIME", "MAX_SENSE", "VENT_AMP", "VENT_PW",
+      "VRP", "VENT_SENSE"
     ],
   },
   // : {

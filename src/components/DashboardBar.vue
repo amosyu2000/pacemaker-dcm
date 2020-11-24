@@ -1,25 +1,19 @@
 <template>
 <div class="h-flex justify-content-center align-items-center mt-1 mx-1">
   <AppInputIcon 
-    @click="uploadParameters"
-    icon="upload" 
-    title="Upload Parameters"
-  />
-  <span class="pr-3"/>
-  <AppInputIcon 
     @click="refreshSerialPorts"
     icon="sync-alt" 
     title="Refresh Ports"
   />
   <span class="pr-1"/>
   <AppInputSelect
-    v-model="selectedPort"
-    :options="ports"
+    v-model="$store.state.selectedPort"
+    :options="$store.state.ports"
     class="port-select"
   />
   <span class="pr-1"/>
   <AppInputIcon 
-    v-if="connectedPort === null || !connectedPort.isOpen"
+    v-if="!$store.state.isConnected"
     @click="connectPacemaker"
     icon="handshake" 
     title="Connect to Pacemaker"
@@ -29,6 +23,17 @@
     @click="disconnectPacemaker"
     icon="handshake-slash" 
     title="Disconnect Pacemaker"
+  />
+  <span class="pr-1"/>
+  <AppInputIcon 
+    @click="uploadParameters"
+    icon="upload" 
+    title="Upload Parameters"
+  />
+  <span class="pr-1"/>
+  <AppInputIcon
+    @click="requestEgram"
+    icon="wave-square"
   />
 </div>
 </template>
@@ -45,13 +50,9 @@ export default {
     AppInputIcon,
     AppInputSelect,
   },
-  data: function() {
-    return {
-      ports: [],
-      selectedPort: null,
-      connectedPort: null,
-    }
-  },
+  data: () => ({
+    isConnected: false,
+  }),
   methods: {
     uploadParameters: async function() {
       // Upload the new bundle to the database
@@ -61,28 +62,71 @@ export default {
       })
       // A successful API call returns the new bundle that was created
       if (response.data.success) {
-        const bundles = this.$store.state.bundles
-        bundles.push(response.data.bundle)
-        this.$store.commit('set', { bundles })
+        this.$store.commit('addBundle', response.data.bundle)
       }
     },
     refreshSerialPorts: async function() {
       const ports = await SerialPort.list()
-      this.ports = ports.map(port => ({name: `${port.manufacturer} (${port.path})`, value: port.path}))
+      this.$store.commit('set', {
+        ports: ports.map(port => ({
+          name: `${port.manufacturer} (${port.path})`, 
+          value: port.path
+        })),
+      })
+      this.$store.commit('addLog', {
+        origin: "Serial", 
+        message: `Refreshing found ${this.$store.state.ports.length} port(s)`
+      })
     },
     connectPacemaker: function() {
-      this.connectedPort = new SerialPort(this.selectedPort, {
-        baudRate: 57600,
-      })
-      console.log(this.connectedPort)
-      this.connectedPort.on('data', function (data) {
-        console.log('data received: ' + data)
-      })
+      try {
+        this.$store.commit('set', { connectedPort:
+          new SerialPort(
+            this.$store.state.selectedPort,
+            { 
+              baudRate: 57600 
+            },
+            (e) => {
+              if (e) {
+                this.$store.commit('addLog', {
+                  origin: "Serial", 
+                  message: "Error: Selected serial port not found"
+                })
+              }
+              else {
+                this.$store.commit('set', {isConnected: true})
+                this.$store.commit('addLog', {
+                  origin: "Serial", 
+                  message: `${this.$store.state.selectedPort} connected`
+                })
+              }
+            }
+          )
+        })
+        this.$store.state.connectedPort.on('data', (data) => {
+          console.log(`data received: ${Buffer(data)}`)
+        })
+        this.$store.state.connectedPort.on('close', () => {
+          this.$store.commit('set', {isConnected: false})
+          return this.$store.commit('addLog', {
+            origin: "Serial", 
+            message: `${this.$store.state.selectedPort} disconnected`
+          })
+        })
+      } catch(e) {
+        this.$store.commit('addLog', {
+          origin: "Serial", 
+          message: "Error: No serial port selected"
+        })
+      }
     },
     disconnectPacemaker: function() {
-      this.connectedPort.close()
-    }
-  }
+      this.$store.state.connectedPort.close()
+    },
+    requestEgram: function() {
+      console.log(this.$store.state.connectedPort)
+    },
+  },
 }
 </script>
 

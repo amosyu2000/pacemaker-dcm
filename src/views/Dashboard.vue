@@ -2,16 +2,27 @@
   <div class="v-flex h-100">
     <NavBar/>
     <DashboardBar/>
-    <div class="flex-1 h-flex overflow-hidden px-1 pb-1">
-      <DashboardHistory class="flex-1"/>
-      <DashboardForm class="flex-3"/>
-      <DashboardRight class="flex-4"/>
+    <div class="flex-1 h-flex px-1 pb-1">
+      <div class="flex-1 v-flex">
+        <div class="flex-3 h-flex overflow-hidden">
+          <DashboardHistory class="flex-1"/>
+          <DashboardForm class="flex-3"/>
+        </div>
+        <DashboardConsole class="flex-1"/>
+      </div>
+      <div class="flex-1 v-flex overflow-hidden">
+        <DashboardRight class="flex-2"/>
+        <DashboardRight class="flex-2"/>
+      </div>
+      
+      
     </div>
   </div>
 </template>
 
 <script>
 import DashboardBar from '@/components/DashboardBar.vue'
+import DashboardConsole from '@/components/DashboardConsole.vue'
 import DashboardForm from '@/components/DashboardForm.vue'
 import DashboardHistory from '@/components/DashboardHistory.vue'
 import DashboardRight from '@/components/DashboardRight.vue'
@@ -21,6 +32,7 @@ export default {
   name: "Dashboard",
   components: {
     DashboardBar,
+    DashboardConsole,
     DashboardForm,
     DashboardHistory,
     DashboardRight,

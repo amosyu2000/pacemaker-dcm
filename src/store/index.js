@@ -6,9 +6,17 @@ Vue.use(Vuex)
 function getDefaultState() {
   return {
     user: {},
+
     bundles: [],
     focusedBundle: {},
     newBundle: {},
+
+    logs: [],
+
+    ports: [],
+    selectedPort: null,
+    connectedPort: {},
+    isConnected: false,
   }
 }
 
@@ -20,6 +28,15 @@ export default new Vuex.Store({
     },
     reset: function(state) {
       Object.assign(state, getDefaultState())
+    },
+    addBundle: function(state, payload) {
+      state.bundles.push(payload)
+    },
+    addLog: function(state, payload) {
+      state.logs.push({
+        ...payload,
+        time: new Date(),
+      })
     },
   },
 })

@@ -38,8 +38,8 @@ export default {
           ticks: {
             fontColor: "rgb(188, 191, 194)",
             padding: 15,
-            suggestedMax: 0.52,
-            suggestedMin: 0.48,
+            max: 1,
+            min: 0,
           },
           scaleLabel: {
             labelString: 'Voltage (mV)',

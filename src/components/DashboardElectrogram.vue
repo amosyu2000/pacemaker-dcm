@@ -18,7 +18,7 @@ export default {
   computed: {
     chartData: function() {
       const dataLength = this.$store.state.egramTimeData.length
-      const displayLength = 100
+      const displayLength = 120
       const dataBegin = Math.max(dataLength-displayLength, 0)
       return {
         labels: this.$store.state.egramTimeData.slice(dataBegin,dataLength),

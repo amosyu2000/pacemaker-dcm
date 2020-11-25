@@ -107,7 +107,9 @@ export default {
         // Behaviour if the serial port is disconnected abruptly
         port.on('close', () => {
           this.disconnectPacemaker()
-          this.pushLog(`${this.$store.state.connectedPort.path} disconnected`)
+          if (this.$store.state.connectedPort.path) {
+            this.pushLog(`${this.$store.state.connectedPort.path} disconnected`)
+          }
         })
 
         // The parser waits for a payload of 98 bytes before releasing the buffer to the program
@@ -218,7 +220,7 @@ export default {
       }
       // Begin streaming immediately
       streamElectrogram()
-      this.pushLog('Started streaming Electrogram data')
+      this.pushLog('Started streaming electrogram data')
       // Set a timer loop to keep streaming at regular intervals
       const interval = setInterval(() => {
         if (this.$store.state.isStreaming) {
@@ -227,11 +229,11 @@ export default {
         else {
           clearInterval(interval)
         }
-      }, 50)
+      }, 80)
     },
     stopElectrogram: function() {
       this.$store.commit('set', { isStreaming: false })
-      this.pushLog('Stopped streaming Electrogram data')
+      this.pushLog('Stopped streaming electrogram data')
     },
     pushLog: function(message) {
       this.$store.commit('unshift', {

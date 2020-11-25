@@ -4,7 +4,7 @@
       <p class="font-xl c-lightest font-bold">Device Controller-Monitor</p>
       <p class="font-md c-lighter">SFWRENG 3K04 Lab 4 Team 2</p>
     </header>
-    <div class="h-flex justify-content-center mb-4 position-relative">
+    <div class="v-flex align-items-center mb-4 position-relative">
       <div class="header-bottom"></div>
       <div class="card">
         <template v-if="showLoginForm">
@@ -55,12 +55,16 @@
           </form>
         </template>
       </div>
+      <div class="pt-2">
+        {{`v${version}`}}
+      </div>
     </div>
   </BackgroundParticles>
 </template>
 
 <script>
 import post from '@/utils/post'
+import { version } from '../../package.json'
 import BackgroundParticles from '@/components/BackgroundParticles.vue'
 import AppInputField from '@/components/AppInputField.vue'
 import AppInputButton from '@/components/AppInputButton.vue'
@@ -81,6 +85,8 @@ export default {
     username: null,
     password: null,
     retypedPassword: null,
+
+    version: version
   }),
   methods: {
     toggleForms: function(e) {

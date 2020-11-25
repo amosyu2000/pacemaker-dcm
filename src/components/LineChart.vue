@@ -42,7 +42,7 @@ export default {
             min: 0,
           },
           scaleLabel: {
-            labelString: 'Voltage (mV)',
+            labelString: 'Voltage (V)',
             fontColor: "rgb(188, 191, 194)",
             display: true,
             fontSize: 14,

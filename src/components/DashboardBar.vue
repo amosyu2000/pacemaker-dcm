@@ -115,9 +115,6 @@ export default {
         // The parser waits for a payload of 98 bytes before releasing the buffer to the program
         const parser = port.pipe(new ByteLength({length: 98}))
         parser.on('data', (buffer) => {
-          // Flush any additional unexpected values from the buffer
-          port.flush()
-
           const requestType = this.serialRequestStack.pop()
 
           if (requestType === 'params') {
@@ -229,7 +226,7 @@ export default {
         else {
           clearInterval(interval)
         }
-      }, 80)
+      }, 60)
     },
     stopElectrogram: function() {
       this.$store.commit('set', { isStreaming: false })

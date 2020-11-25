@@ -36,5 +36,8 @@ export default new Vuex.Store({
     push: function(state, payload) {
       Object.keys(payload).forEach(k => state[k].push(payload[k]))
     },
+    unshift: function(state, payload) {
+      Object.keys(payload).forEach(k => state[k].unshift(payload[k]))
+    },
   },
 })

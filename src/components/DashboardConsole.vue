@@ -2,7 +2,7 @@
   <AppSection>
     <template v-slot:header>Console</template>
     <div 
-      v-for="(log, index) in $store.state.logs.slice().reverse().slice(0,50)"
+      v-for="(log, index) in $store.state.logs.slice(0,50)"
       :key="index"
       class="log"
     >

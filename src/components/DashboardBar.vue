@@ -154,7 +154,7 @@ export default {
 
       // A successful API call returns the new bundle that was created
       if (response.data.success) {
-        this.$store.commit('push', { bundles: response.data.bundle })
+        this.$store.commit('unshift', { bundles: response.data.bundle })
       }
 
       // Log the successful operation
@@ -171,7 +171,7 @@ export default {
       this.$store.state.connectedPort.write(Buffer([ 0x16, 0x22, ...Array(82).fill(0x00) ]))
     },
     pushLog: function(message) {
-      this.$store.commit('push', {
+      this.$store.commit('unshift', {
         logs: { 
           message: message,
           time: new Date()

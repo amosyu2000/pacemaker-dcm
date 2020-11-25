@@ -123,7 +123,7 @@ export default {
         return
       }
       this.$store.commit('set', { user: data })
-      this.$store.commit('push', {
+      this.$store.commit('unshift', {
         logs: {
           message: `User ${data.username} logged in`,
           time: new Date()

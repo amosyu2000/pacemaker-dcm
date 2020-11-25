@@ -33,7 +33,7 @@ export default {
     // Returns the array of bundles from the store, 
     // reversed so that the newest is at the front
     bundles: function() {
-      return this.$store.state.bundles.slice().reverse()
+      return this.$store.state.bundles
     },
     bundleCount: function() {
       return this.$store.state.bundles.length

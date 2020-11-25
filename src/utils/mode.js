@@ -132,32 +132,25 @@ const modes = {
 }
 
 const parameters = {
-  UPPER_RATE_LIMIT:  { name: "Upper Rate Limit",        type: Number, min: 50,  max: 175, increment: 5 },
-  LOWER_RATE_LIMIT:  { name: "Lower Rate Limit",        type: Number, min: 30,  max: 175, increment: 1 },
-  PVARP:             { name: "PVARP",                   type: Number, min: 150, max: 500, increment: 10 },
-  AV_DELAY:          { name: "Fixed AV Delay",          type: Number, min: 70,  max: 300, increment: 10 },
-  REACT_TIME:        { name: "Reaction Time",           type: Number, min: 10,  max: 50,  increment: 1 },
-  RESP_FACTOR:       { name: "Response Factor",         type: Number, min: 1,   max: 16,  increment: 1 },
-  ACTIVITY_THRESH:   { name: "Activity Threshold",      type: Number, min: 0,   max: 6,   increment: 1 },
-  RCVR_TIME:         { name: "Recovery Time",           type: Number, min: 2,   max: 16,  increment: 1 },
-  MAX_SENSE:         { name: "Maximum Sensor Rate",     type: Number, min: 50,  max: 175, increment: 5 },
-  ATR_AMP:           { name: "Atrial Amplitude",        type: Number, min: 0.5, max: 7,   increment: 0.1 },
-  ATR_PW:            { name: "Atrial Pulse Width",      type: Number, min: 0.1, max: 1.9, increment: 0.1 },
-  ARP:               { name: "ARP",                     type: Number, min: 150, max: 500, increment: 10 },
-  ATR_THRESH:        { name: "Atrial Threshold",        type: Number, min: 1,   max: 10,  increment: 1 },
-  ATR_SENSE:         { name: "Atrial Sensitivity",      type: Number, min: 1,   max: 10,  increment: 1 },
-  VENT_AMP:          { name: "Ventricular Amplitude",   type: Number, min: 0.5, max: 7,   increment: 0.1 },
-  VENT_PW:           { name: "Ventricular Pulse Width", type: Number, min: 0.1, max: 1.9, increment: 0.1 },
-  VRP:               { name: "VRP",                     type: Number, min: 150, max: 500, increment: 10 },
-  VENT_THRESH:       { name: "Ventricular Threshold",   type: Number, min: 1,   max: 10,  increment: 1 },
-  VENT_SENSE:        { name: "Ventricular Sensitivity", type: Number, min: 1,   max: 10,  increment: 1 },
-
-  // ATR_DUR:           { name: "ATR Duration",            type: Number, min: 0, max: 9999, increment: 1 },
-  // ATR_FALLBACK_MODE: { name: "ATR Fallback Mode",       type: Number, min: 0, max: 9999, increment: 1 },
-  // ATR_FALLBACK_TIME: { name: "ATR Fallback Time",       type: Number, min: 0, max: 9999, increment: 1 },
-  // PVARP_EXT:         { name: "PVARP Extension",         type: Number, min: 0, max: 9999, increment: 1 },
-  // HYSTERESIS:        { name: "Hysteresis",              type: Boolean },
-  // RATE_SMOOTH:       { name: "Rate Smoothing",          type: Number, min: 0, max: 9999, increment: 1 },
+  LOWER_RATE_LIMIT: { name: "Lower Rate Limit",              unit: "ppm", min: 30,  max: 175, increment: 1,   start: 2,  bytes: 2 },
+  UPPER_RATE_LIMIT: { name: "Upper Rate Limit",              unit: "ppm", min: 50,  max: 175, increment: 5,   start: 4,  bytes: 2 },
+  PVARP:            { name: "PVARP",                         unit: "ms",  min: 150, max: 500, increment: 10,  start: 6,  bytes: 2 },
+  AV_DELAY:         { name: "Fixed AV Delay",                unit: "ms",  min: 70,  max: 300, increment: 10,  start: 8,  bytes: 2 },
+  REACT_TIME:       { name: "Reaction Time",                 unit: "s",   min: 10,  max: 50,  increment: 1,   start: 10, bytes: 2 },
+  RESP_FACTOR:      { name: "Response Factor",               unit: false, min: 1,   max: 16,  increment: 1,   start: 12, bytes: 2 },
+  ACTIVITY_THRESH:  { name: "Activity Threshold",            unit: false, min: 0,   max: 6,   increment: 1,   start: 14, bytes: 8 }, 
+  RCVR_TIME:        { name: "Recovery Time",                 unit: "min", min: 2,   max: 16,  increment: 1,   start: 22, bytes: 2 },
+  MAX_SENSE:        { name: "Maximum Sensor Rate",           unit: "ppm", min: 50,  max: 175, increment: 5,   start: 24, bytes: 2 },
+  ATR_AMP:          { name: "Atrial Amplitude",              unit: "V",   min: 0,   max: 5,   increment: 0.1, start: 26, bytes: 8 },
+  ATR_PW:           { name: "Atrial Pulse Width",            unit: "ms",  min: 1,   max: 30,  increment: 1,   start: 34, bytes: 2 },
+  ARP:              { name: "Atrial Refractory Period",      unit: "ms",  min: 150, max: 500, increment: 10,  start: 36, bytes: 2 },
+  ATR_THRESH:       { name: "Atrial Threshold",              unit: "V",   min: 1,   max: 10,  increment: 1,   start: 38, bytes: 8 },
+  ATR_SENSE:        { name: "Atrial Sensitivity",            unit: "mV",  min: 0,   max: 5,   increment: 0.1, start: 46, bytes: 8 },
+  VENT_AMP:         { name: "Ventricular Amplitude",         unit: "V",   min: 0,   max: 5,   increment: 0.1, start: 54, bytes: 8 },
+  VENT_PW:          { name: "Ventricular Pulse Width",       unit: "ms",  min: 1,   max: 30,  increment: 1,   start: 62, bytes: 2 },
+  VRP:              { name: "Ventricular Refractory Period", unit: "ms",  min: 150, max: 500, increment: 10,  start: 64, bytes: 2 },
+  VENT_THRESH:      { name: "Ventricular Threshold",         unit: "V",   min: 1,   max: 10,  increment: 1,   start: 66, bytes: 8 },
+  VENT_SENSE:       { name: "Ventricular Sensitivity",       unit: "mV",  min: 0,   max: 5,   increment: 0.1, start: 74, bytes: 8 },
 }
 
 export default {
@@ -178,4 +171,5 @@ export default {
     }
   },
   options: Object.entries(modes).map(([k,v]) => ({name: v.name, value: Number(k)})),
+  parameters: parameters
 }

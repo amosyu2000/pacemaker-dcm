@@ -1,24 +1,19 @@
 <template>
   <AppSection>
     <template v-slot:header>
-      <template v-if="$store.state.focusedBundle._id">
-        <span>{{ bundle.name }}</span>
-        <span class="ml-auto c-light font-normal">
-          {{ (new Date(bundle.created_at)).toLocaleString('en-US') }}
-        </span>
-      </template>
-      <template v-else>
-        <span>Set New Parameters</span>
-      </template>
+      <span>Pacemaker Parameters</span>
+      <span v-if="bundle.MODE" class="ml-auto c-light font-normal">
+        {{ bundle.created_at.toLocaleString('en-US') }}
+      </span>
     </template>
     <fieldset 
       v-if="bundle.MODE"
-      :disabled="Boolean($store.state.focusedBundle._id)"
+      disabled
     >
       <AppInputSelect
         :value="bundle.MODE"
         :options="mode.options"
-        v-model="bundle.MODE"
+        v-model.number="bundle.MODE"
         title="Pacing Mode"
         class="px-1 pb-3"
       />
@@ -48,7 +43,7 @@ import AppInputNumber from '@/components/AppInputNumber.vue'
 import AppInputSelect from '@/components/AppInputSelect.vue'
 
 export default {
-  name: "DashboardForm",
+  name: "DashboardPacemaker",
   components: {
     AppSection,
     AppInputNumber,
@@ -60,7 +55,7 @@ export default {
   computed: {
     // From the store, returns the focused bundle
     bundle: function() {
-      return this.$store.state.focusedBundle
+      return this.$store.state.pacemakerBundle
     },
   },
 }

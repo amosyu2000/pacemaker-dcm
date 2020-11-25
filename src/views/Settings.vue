@@ -30,7 +30,6 @@ export default {
         post('user/delete', {
           id: this.$store.state.user._id
         })
-        this.$store.commit('reset')
         this.$router.push('login')
       }
       else {

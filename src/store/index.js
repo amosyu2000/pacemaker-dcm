@@ -10,6 +10,7 @@ function getDefaultState() {
     bundles: [],
     focusedBundle: {},
     newBundle: {},
+    pacemakerBundle: {MODE: null},
 
     logs: [],
 
@@ -17,6 +18,9 @@ function getDefaultState() {
     selectedPort: null,
     connectedPort: {},
     isConnected: false,
+
+    atrialData: [],
+    ventricularData: [],
   }
 }
 
@@ -29,14 +33,8 @@ export default new Vuex.Store({
     reset: function(state) {
       Object.assign(state, getDefaultState())
     },
-    addBundle: function(state, payload) {
-      state.bundles.push(payload)
-    },
-    addLog: function(state, payload) {
-      state.logs.push({
-        ...payload,
-        time: new Date(),
-      })
+    push: function(state, payload) {
+      Object.keys(payload).forEach(k => state[k].push(payload[k]))
     },
   },
 })

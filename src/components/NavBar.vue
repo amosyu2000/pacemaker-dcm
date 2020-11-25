@@ -37,7 +37,6 @@ export default {
   }),
   methods: {
     logout: function() {
-      this.$store.commit('reset')
       this.$router.push('login')
     },
     updateTime: function() {

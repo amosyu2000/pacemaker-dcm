@@ -126,6 +126,12 @@ export default {
       this.$router.push('dashboard')
     }
   },
+  mounted: function() {
+    if (this.$store.state.isConnected) {
+      this.$store.state.connectedPort.close()
+    }
+    this.$store.commit('reset')
+  }
 }
 </script> 
 

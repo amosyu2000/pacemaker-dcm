@@ -11,8 +11,8 @@
         <DashboardConsole class="flex-1"/>
       </div>
       <div class="flex-1 v-flex overflow-hidden">
-        <DashboardRight class="flex-2"/>
-        <DashboardRight class="flex-2"/>
+        <DashboardPacemaker class="flex-2"/>
+        <DashboardElectrogram class="flex-2"/>
       </div>
       
       
@@ -23,9 +23,10 @@
 <script>
 import DashboardBar from '@/components/DashboardBar.vue'
 import DashboardConsole from '@/components/DashboardConsole.vue'
+import DashboardElectrogram from '@/components/DashboardElectrogram.vue'
 import DashboardForm from '@/components/DashboardForm.vue'
 import DashboardHistory from '@/components/DashboardHistory.vue'
-import DashboardRight from '@/components/DashboardRight.vue'
+import DashboardPacemaker from '@/components/DashboardPacemaker.vue'
 import NavBar from '@/components/NavBar.vue'
 
 export default {
@@ -33,9 +34,10 @@ export default {
   components: {
     DashboardBar,
     DashboardConsole,
+    DashboardElectrogram,
     DashboardForm,
     DashboardHistory,
-    DashboardRight,
+    DashboardPacemaker,
     NavBar,
   },
 }

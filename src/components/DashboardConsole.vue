@@ -6,9 +6,7 @@
       :key="index"
       class="log"
     >
-      {{ log.time.toLocaleTimeString('en-US') }}
-      <span class="font-bold">[{{ log.origin }}]</span> 
-      {{ log.message }}
+      {{ `${log.time.toLocaleTimeString('en-US')} \u2003 ${log.message}` }}
     </div>
   </AppSection>
 </template>

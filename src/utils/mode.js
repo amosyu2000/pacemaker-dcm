@@ -132,6 +132,7 @@ const modes = {
 }
 
 const parameters = {
+  MODE:             { name: "Pacing Mode",                   unit: false, min: 1,   max: 10,  increment: 1,   start: 0,  bytes: 2 },
   LOWER_RATE_LIMIT: { name: "Lower Rate Limit",              unit: "ppm", min: 30,  max: 175, increment: 1,   start: 2,  bytes: 2 },
   UPPER_RATE_LIMIT: { name: "Upper Rate Limit",              unit: "ppm", min: 50,  max: 175, increment: 5,   start: 4,  bytes: 2 },
   PVARP:            { name: "PVARP",                         unit: "ms",  min: 150, max: 500, increment: 10,  start: 6,  bytes: 2 },

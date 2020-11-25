@@ -7,16 +7,16 @@ function getDefaultState() {
   return {
     user: {},
 
+    logs: [],
+    
     bundles: [],
     focusedBundle: {},
     newBundle: {},
     pacemakerBundle: {MODE: null},
 
-    logs: [],
-
     ports: [],
     selectedPort: null,
-    connectedPort: {},
+    connectedPort: null,
     isConnected: false,
 
     atrialData: [],

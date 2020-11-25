@@ -3,7 +3,7 @@
     <template v-slot:header>
       <span>Pacemaker Parameters</span>
       <span v-if="bundle.MODE" class="ml-auto c-light font-normal">
-        {{ bundle.created_at.toLocaleString('en-US') }}
+        {{ (new Date(bundle.created_at)).toLocaleString('en-US') }}
       </span>
     </template>
     <fieldset 

@@ -122,7 +122,13 @@ export default {
         this.errorMessage = data.reason
         return
       }
-      this.$store.commit('set', {user: data})
+      this.$store.commit('set', { user: data })
+      this.$store.commit('push', {
+        logs: {
+          message: `User ${data.username} logged in`,
+          time: new Date()
+        }
+      })
       this.$router.push('dashboard')
     }
   },

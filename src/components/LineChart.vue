@@ -13,6 +13,7 @@ export default {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      tooltips: false,
       legend: {
         labels: {
           fontColor: "rgb(188, 191, 194)",
@@ -24,6 +25,10 @@ export default {
           tension: 0.05,
           fill: false,
           borderWidth: 2
+        },
+        point: {
+          radius: 1,
+          hitRadius: 4
         }
       },
       scales: {

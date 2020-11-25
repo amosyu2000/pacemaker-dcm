@@ -62,8 +62,8 @@ export default {
           borderWidth: 2
         },
         point: {
-          radius: 1,
-          hitRadius: 4
+          radius: 0,
+          hitRadius: 5
         }
       },
       animation: {

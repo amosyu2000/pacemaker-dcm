@@ -21,8 +21,8 @@ Next, you'll need Node.js installed on your machine. Once you do, follow these s
 
 1. Download the repository from the master branch on GitHub
 2. Extract the .zip
-3. Run npm install in the root directory (where the package.json file is found)
-4. Run npm run serve in the root directory
+3. Run `npm install` in the root directory (where the package.json file is found)
+4. Run `npm run electron:serve` in the root directory
 
 ## License
 

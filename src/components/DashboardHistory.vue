@@ -43,7 +43,7 @@ export default {
     // Updates the newBundle in the store if the amount of bundles increases
     bundleCount: function() {
       const bundles = this.$store.state.bundles
-      const newBundle = this.createNewBundleFrom(bundles[bundles.length-1])
+      const newBundle = this.createNewBundleFrom(bundles[0])
       this.$store.commit('set', {newBundle: newBundle})
       this.$store.commit('set', {focusedBundle: newBundle})
     },

@@ -16,11 +16,12 @@ function getDefaultState() {
 
     ports: [],
     selectedPort: null,
-    connectedPort: null,
-    isConnected: false,
+    connectedPort: {isOpen: false},
 
-    atrialData: [],
-    ventricularData: [],
+    isStreaming: false,
+    egramTimeData: [],
+    egramAtrialData: [],
+    egramVentricularData: [],
   }
 }
 
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     },
     push: function(state, payload) {
       Object.keys(payload).forEach(k => state[k].push(payload[k]))
+    },
+    pop: function(state, payload) {
+      return state[payload].pop()
     },
     unshift: function(state, payload) {
       Object.keys(payload).forEach(k => state[k].unshift(payload[k]))

@@ -37,6 +37,9 @@ export default {
   }),
   methods: {
     logout: function() {
+      if (this.$store.state.connectedPort.isOpen) {
+        this.$store.state.connectedPort.close()
+      }
       this.$router.push('login')
     },
     updateTime: function() {

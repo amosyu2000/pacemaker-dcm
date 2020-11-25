@@ -1,7 +1,7 @@
 <template>
   <AppSection>
     <template v-slot:header>Electrogram</template>
-    <LineChart class="chart-container" :chartdata="chartdata"></LineChart>
+    <LineChart class="chart-container" :chartData="chartData"></LineChart>
   </AppSection>
 </template>
 
@@ -15,23 +15,28 @@ export default {
     AppSection,
     LineChart,
   },
-  data: () => ({
-    chartdata: {
-      labels: [0,1,2,3,4,5,6,7,8,9,10,11,12,13],
-      datasets: [
-        {
-          label: 'Atrial',
-          borderColor: "rgb(114, 137, 218)",
-          data: [40, 39, 10, 40, 39, 80, 40, 40, 39, 10, 40, 39, 80, 40]
-        },
-        {
-          label: 'Ventricular',
-          borderColor: "rgb(224, 82, 82)",
-          data: [40, 40, 39, 10, 40, 39, 40, 39, 10, 40, 39, 80, 80, 40]
-        }
-      ]
+  computed: {
+    chartData: function() {
+      const dataLength = this.$store.state.egramTimeData.length
+      const displayLength = 100
+      const dataBegin = Math.max(dataLength-displayLength, 0)
+      return {
+        labels: this.$store.state.egramTimeData.slice(dataBegin,dataLength),
+        datasets: [
+          {
+            label: 'Atrial',
+            borderColor: "rgb(114, 137, 218)",
+            data: this.$store.state.egramAtrialData.slice(dataBegin,dataLength)
+          },
+          {
+            label: 'Ventricular',
+            borderColor: "rgb(224, 82, 82)",
+            data: this.$store.state.egramVentricularData.slice(dataBegin,dataLength)
+          }
+        ]
+      }
     }
-  })
+  },
 }
 </script>
 

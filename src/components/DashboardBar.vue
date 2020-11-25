@@ -13,7 +13,7 @@
   />
   <span class="pr-1"/>
   <AppInputIcon 
-    v-if="!$store.state.isConnected"
+    v-if="!isOpen"
     @click="connectPacemaker"
     icon="handshake" 
     title="Connect to Pacemaker"
@@ -36,6 +36,19 @@
     icon="download"
     title="Download Parameters"
   />
+  <span class="pr-1"/>
+  <AppInputIcon
+    v-if="!$store.state.isStreaming"
+    @click="startElectrogram"
+    icon="video"
+    title="Start Electrogram"
+  />
+  <AppInputIcon
+    v-else
+    @click="stopElectrogram"
+    icon="video-slash"
+    title="Stop Electrogram"
+  />
 </div>
 </template>
 
@@ -53,15 +66,18 @@ export default {
     AppInputIcon,
     AppInputSelect,
   },
-  data: () => ({
-    isConnected: false,
-  }),
+  data: function() {
+    return {
+      isOpen: this.$store.state.connectedPort.isOpen,
+      serialRequestStack: []
+    }
+  },
   methods: {
     refreshSerialPorts: async function() {
       const ports = await SerialPort.list()
       this.$store.commit('set', {
         ports: ports.map(port => ({
-          name: `${port.manufacturer} (${port.path})`,
+          name: `${port.path} (${port.manufacturer})`,
           value: port.path
         })),
       })
@@ -79,21 +95,19 @@ export default {
           },
           (e) => {
             if (e) {
-              this.pushLog('Error: Selected serial port not found')
+              this.pushLog('Error: Selected serial port not available')
             }
             else {
-              this.$store.commit('set', {isConnected: true})
+              this.isOpen = true
               this.pushLog(`${this.$store.state.selectedPort} connected`)
             }
           }
         )
 
-        // Behaviour if the serial port is disconnected, either intentionally or abruptly
+        // Behaviour if the serial port is disconnected abruptly
         port.on('close', () => {
-          this.$store.commit('set', {isConnected: false})
-          if (this.$store.state.connectedPort) {
-            this.pushLog(`${port.path} disconnected`)
-          }
+          this.disconnectPacemaker()
+          this.pushLog(`${this.$store.state.connectedPort.path} disconnected`)
         })
 
         // The parser waits for a payload of 98 bytes before releasing the buffer to the program
@@ -102,20 +116,32 @@ export default {
           // Flush any additional unexpected values from the buffer
           port.flush()
 
-          // Deconstruct the Buffer into numerical parameter values 
-          this.$store.state.pacemakerBundle.created_at = (new Date()).getTime()
-          Object.entries(mode.parameters).map(([key, val]) => {
-            // 16 bit integer
-            if (val.bytes === 2) {
-              this.$store.state.pacemakerBundle[key] = buffer.slice(val.start, val.start+2).readInt16LE()
-            }
-            // 64 bit double
-            else if (val.bytes === 8) {
-              this.$store.state.pacemakerBundle[key] = buffer.slice(val.start, val.start+8).readDoubleLE()
-            }
-          })
+          const requestType = this.serialRequestStack.pop()
 
-          this.pushLog('Downloaded pacemaker parameters')
+          if (requestType === 'params') {
+            // Deconstruct the Buffer into numerical parameter values 
+            this.$store.state.pacemakerBundle.MODE = null
+            this.$store.state.pacemakerBundle.created_at = (new Date()).getTime()
+            Object.entries(mode.parameters).map(([key, val]) => {
+              // 16 bit integer
+              if (val.bytes === 2) {
+                this.$store.state.pacemakerBundle[key] = buffer.slice(val.start, val.start+2).readInt16LE()
+              }
+              // 64 bit double
+              else if (val.bytes === 8) {
+                this.$store.state.pacemakerBundle[key] = buffer.slice(val.start, val.start+8).readDoubleLE()
+              }
+            })
+          }
+
+          // If streaming, store the atrial and ventricular data - otherwise discard it
+          else if (requestType === 'egram') {
+            this.$store.commit('push', {
+              egramTimeData: (new Date()).toLocaleTimeString('en-US'),
+              egramAtrialData: buffer.slice(82, 90).readDoubleLE(),
+              egramVentricularData: buffer.slice(90, 98).readDoubleLE()
+            })
+          }
         })
 
         // Push the serial port connection to store
@@ -126,12 +152,19 @@ export default {
       }
     },
     disconnectPacemaker: function() {
-      this.$store.state.connectedPort.close()
+      this.isOpen = false
+      if (this.$store.state.isStreaming) {
+        this.stopElectrogram()
+      }
+      if (this.$store.state.connectedPort.isOpen) {
+        this.$store.state.connectedPort.close()
+      }
     },
     uploadParameters: async function() {
-      if (!this.$store.state.isConnected) {
+      if (!this.isOpen) {
         return this.pushLog('Error: No serial port connected')
       }
+
       // Compile and send the buffer to send to the pacemaker
       let uploadBuffer = Buffer([ 0x16, 0x55, ...Array(82).fill(0x00) ])
       Object.entries(mode.parameters).map(([key, val]) => {
@@ -164,11 +197,41 @@ export default {
       this.downloadParameters()
     },
     downloadParameters: function() {
-      if (!this.$store.state.isConnected) {
+      if (!this.isOpen) {
         return this.pushLog('Error: No serial port connected')
       }
-      this.$store.state.pacemakerBundle.MODE = null
+
+      this.serialRequestStack.push('params')
       this.$store.state.connectedPort.write(Buffer([ 0x16, 0x22, ...Array(82).fill(0x00) ]))
+      this.pushLog('Downloaded pacemaker parameters')
+    },
+    startElectrogram: function() {
+      if (!this.isOpen) {
+        return this.pushLog('Error: No serial port connected')
+      }
+
+      this.$store.commit('set', { isStreaming: true })
+
+      const streamElectrogram = () => {
+        this.serialRequestStack.push('egram')
+        this.$store.state.connectedPort.write(Buffer([ 0x16, 0x22, ...Array(82).fill(0x00) ]))
+      }
+      // Begin streaming immediately
+      streamElectrogram()
+      this.pushLog('Started streaming Electrogram data')
+      // Set a timer loop to keep streaming at regular intervals
+      const interval = setInterval(() => {
+        if (this.$store.state.isStreaming) {
+          streamElectrogram()
+        }
+        else {
+          clearInterval(interval)
+        }
+      }, 50)
+    },
+    stopElectrogram: function() {
+      this.$store.commit('set', { isStreaming: false })
+      this.pushLog('Stopped streaming Electrogram data')
     },
     pushLog: function(message) {
       this.$store.commit('unshift', {

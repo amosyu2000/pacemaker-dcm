@@ -133,9 +133,6 @@ export default {
     }
   },
   mounted: function() {
-    if (this.$store.state.isConnected) {
-      this.$store.state.connectedPort.close()
-    }
     this.$store.commit('reset')
   }
 }

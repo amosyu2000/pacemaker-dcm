@@ -3,9 +3,9 @@
     <NavBar/>
     <div class="p-1">
       <AppSection>
-        <template v-slot:header>Delete User Account</template>
+        <template v-slot:header>Delete Account</template>
         <form @submit="checkDeleteForm">
-          <AppInputField title="Administrator Key" v-model="adminKey"/>
+          <AppInputField title="Administrator Key" type="password" v-model="adminKey"/>
           <AppInputButton value="Delete Account" type="error" class="mt-2"/>
           <div class="c-red mt-2">
             {{ errorMessage }}

@@ -18,19 +18,19 @@ export default {
   computed: {
     chartData: function() {
       const dataLength = this.$store.state.egramTimeData.length
-      const displayLength = 120
+      const displayLength = 240
       const dataBegin = Math.max(dataLength-displayLength, 0)
       return {
         labels: this.$store.state.egramTimeData.slice(dataBegin,dataLength),
         datasets: [
           {
             label: 'Atrial',
-            borderColor: "rgb(114, 137, 218)",
+            borderColor: "rgb(224, 82, 82)",
             data: this.$store.state.egramAtrialData.slice(dataBegin,dataLength)
           },
           {
             label: 'Ventricular',
-            borderColor: "rgb(224, 82, 82)",
+            borderColor: "rgb(114, 137, 218)",
             data: this.$store.state.egramVentricularData.slice(dataBegin,dataLength)
           }
         ]

@@ -69,7 +69,9 @@ export default {
   data: function() {
     return {
       isOpen: this.$store.state.connectedPort.isOpen,
-      serialRequestStack: []
+      serialRequestStack: [],
+      baudRate: 115200,
+      samplingMilliseconds: 30,
     }
   },
   methods: {
@@ -91,7 +93,7 @@ export default {
         const port = new SerialPort(
           this.$store.state.selectedPort,
           { 
-            baudRate: 115200
+            baudRate: this.baudRate
           },
           (e) => {
             if (e) {
@@ -226,7 +228,7 @@ export default {
         else {
           clearInterval(interval)
         }
-      }, 60)
+      }, this.samplingMilliseconds)
     },
     stopElectrogram: function() {
       this.$store.commit('set', { isStreaming: false })

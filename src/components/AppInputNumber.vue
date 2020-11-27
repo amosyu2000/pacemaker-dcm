@@ -13,10 +13,18 @@
         @input="onInput($event.target.value)"
       />
       <div class="v-flex justify-content-center">
-        <button @click="incrementValue(increment)" tabindex="-1">
+        <button 
+          @click="incrementValue(increment)" 
+          :class="{hidden: numericValue === max}" 
+          tabindex="-1"
+        >
           <FontAwesomeIcon icon="caret-up"/>
         </button>
-        <button @click="incrementValue(-increment)" tabindex="-1">
+        <button 
+          @click="incrementValue(-increment)" 
+          :class="{hidden: numericValue === min}"
+          tabindex="-1"
+        >
           <FontAwesomeIcon icon="caret-down"/>
         </button>
       </div>

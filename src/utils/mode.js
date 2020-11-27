@@ -70,6 +70,21 @@ const modes = {
       "VRP", "VENT_SENSE"
     ],
   },
+  11: {
+    name: "DDD",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY", "ATR_AMP", "ATR_PW", 
+      "ARP", "VENT_AMP", "VENT_PW", "VRP"
+    ],
+  },
+  12: {
+    name: "DDDR",
+    parameters: [
+      "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY", "MAX_SENSE", 
+      "REACT_TIME", "RESP_FACTOR", "ACTIVITY_THRESH", "RCVR_TIME",
+      "ATR_AMP", "ATR_PW", "ARP", "VENT_AMP", "VENT_PW", "VRP"
+    ],
+  },
   // : {
   //   name: "VDD",
   //   parameters: [
@@ -79,13 +94,6 @@ const modes = {
   // },
   // : {
   //   name: "DDI",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY", "ATR_AMP", "VENT_AMP", 
-  //     "ATR_PW", "VENT_PW", "ATR_SENSE", "VENT_SENSE", "VRP", "ARP", "PVARP"
-  //   ],
-  // },
-  // : {
-  //   name: "DDD",
   //   parameters: [
   //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "AV_DELAY", "ATR_AMP", "VENT_AMP", 
   //     "ATR_PW", "VENT_PW", "ATR_SENSE", "VENT_SENSE", "VRP", "ARP", "PVARP"
@@ -118,14 +126,6 @@ const modes = {
   //   parameters: [
   //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "AV_DELAY", "ATR_AMP", 
   //     "VENT_AMP", "ATR_PW", "VENT_PW", "ATR_SENSE", "VENT_SENSE", "VRP", "ARP", "PVARP", 
-  //     "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
-  //   ],
-  // },
-  // : {
-  //   name: "DDDR",
-  //   parameters: [
-  //     "LOWER_RATE_LIMIT", "UPPER_RATE_LIMIT", "MAX_SENSE", "AV_DELAY", "ATR_AMP", 
-  //     "VENT_AMP", "ATR_PW", "VENT_PW", "ATR_SENSE", "VENT_SENSE", "VRP", "ARP", "PVARP",
   //     "ACTIVITY_THRESH", "REACT_TIME", "RESP_FACTOR", "RCVR_TIME"
   //   ],
   // },

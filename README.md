@@ -22,7 +22,8 @@ Next, you'll need Node.js installed on your machine. Once you do, follow these s
 1. Download the repository from the master branch on GitHub
 2. Extract the .zip
 3. Run `npm install` in the root directory (where the package.json file is found)
-4. Run `npm run electron:serve` in the root directory
+4. Run `npm run rebuild` in the root directory (this will rebuild the `serialport` library so that is compatible with the Electron Node.js environment)
+5. Run `npm run electron:serve` in the root directory
 
 ## License
 

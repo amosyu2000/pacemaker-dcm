@@ -15,7 +15,7 @@ The pacemaker design project is a large portion of the SFWRENG 3K04 Software Dev
 
 ## Demo
 
-A demo of the DCM in action can be found on YouTube [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ). See also the included screenshots below.
+A demo of the DCM in action can be found on YouTube [here](https://youtu.be/Ym9aaLC6m6M). See also the included screenshots below.
 
 ![Login Page](https://user-images.githubusercontent.com/46848538/101964209-9d229580-3bde-11eb-86eb-6929462a7a74.jpg "Login Page")
 ![Dashboard](https://user-images.githubusercontent.com/46848538/101964211-9dbb2c00-3bde-11eb-9252-031a3caad8ee.jpg "Dashboard")
